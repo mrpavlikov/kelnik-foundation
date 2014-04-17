@@ -1,0 +1,8 @@
+{
+  "name": "foundation-libsass-template",
+  "dependencies": {
+    "foundation": "zurb/bower-foundation",
+    "fotorama": "~4.5.1",
+    "requirejs": "~2.1.11"
+  }
+}

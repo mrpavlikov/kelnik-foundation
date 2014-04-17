@@ -7,7 +7,7 @@
 Для работы необходимы
 
   * [Node.js](http://nodejs.org)
-  * [Grunt](http://gruntjs.com/): `[sudo] npm install -g gulp`
+  * [Gulp](http://gulpjs.com/): `[sudo] npm install -g gulp`
   * [Bower](http://bower.io): `[sudo] npm install -g bower`
 
 ## Quickstart
