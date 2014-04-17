@@ -13,17 +13,18 @@
 ## Quickstart
 
 ```bash
-git clone git@github.com:zurb/foundation-libsass-template.git
+git clone https://github.com/mrpavlikov/kelnik-foundation.git
 npm install && bower install
 ```
 
-While you're working on your project, run:
+При работе запускаем watcher
 
-`grunt`
+`gulp`
 
-And you're set!
+Усе
 
-## Directory Structure
+## Структура папок
 
-  * `scss/_settings.scss`: Foundation configuration settings go in here
-  * `scss/app.scss`: Application styles go here
+  * `src/scss/_settings.scss`: Foundation configuration settings
+  * `src/scss/app.scss`: Application styles
+  * `src/js`: Javascript sources
