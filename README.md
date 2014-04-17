@@ -1,14 +1,14 @@
 # Foundation libsass template
 
-This is a template to start your own project that uses Grunt and libsass!
+Шаблон для начала работы с Foundation/Sass/Gulp/Requirejs
 
-## Requirements
+## Требования
 
-You'll need to have the following items installed before continuing.
+Для работы необходимы
 
-  * [Node.js](http://nodejs.org): Use the installer provided on the NodeJS website.
-  * [Grunt](http://gruntjs.com/): Run `[sudo] npm install -g grunt-cli`
-  * [Bower](http://bower.io): Run `[sudo] npm install -g bower`
+  * [Node.js](http://nodejs.org)
+  * [Grunt](http://gruntjs.com/): `[sudo] npm install -g gulp`
+  * [Bower](http://bower.io): `[sudo] npm install -g bower`
 
 ## Quickstart
 
