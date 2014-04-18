@@ -1,20 +1,21 @@
 @import "settings_common";
+
 // SEO fix for header
 .top-bar .name .site-name{
-		line-height: $topbar-height;
-		font-size: $topbar-title-font-size;
-		margin: 0;
-		a {
-				font-weight: $topbar-title-weight;
-				color: $topbar-link-color;
-				width: 50%;
-				display: block;
-				padding: 0 $topbar-link-padding;
-		}
+	line-height: $topbar-height;
+	font-size: $topbar-title-font-size;
+	margin: 0;
+	a {
+		font-weight: $topbar-title-weight;
+		color: $topbar-link-color;
+		width: 50%;
+		display: block;
+		padding: 0 $topbar-link-padding;
+	}
 }
 
 @media #{$topbar-media-query} {
-		.top-bar .name .site-name a { width: auto; }
+	.top-bar .name .site-name a { width: auto; }
 }
 
 // Reflow hack for image height
@@ -37,6 +38,7 @@
 
 // Hack for modal with max-width
 $reveal-fixed-width: ($row-width + rem-calc(200)) !default;
+
 .reveal-modal-alt {
 	padding: 0;
 	background: transparent;
@@ -49,7 +51,7 @@ $reveal-fixed-width: ($row-width + rem-calc(200)) !default;
 		max-width: $reveal-fixed-width;
 
 		@media #{$small-only} {
-			min-height:100vh;
+			min-height: 100vh;
 		}
 
 		@media #{$medium-up} {
@@ -57,11 +59,11 @@ $reveal-fixed-width: ($row-width + rem-calc(200)) !default;
 		}
 
 		@include reveal-modal-style(
-			$bg:$reveal-modal-bg,
-			$padding:$reveal-modal-padding,
-			$border:true,
-			$box-shadow:true,
-			$radius:false
+			$bg: $reveal-modal-bg,
+			$padding: $reveal-modal-padding,
+			$border: true,
+			$box-shadow: true,
+			$radius: false
 		);
 	}
 }
