@@ -37,6 +37,11 @@
 .ratio-1-1  { padding-bottom: $ratio-1-1; }
 
 // Hack for modal with max-width
+// <div class="reveal-modal reveal-modal-alt">
+// 	<div class="reveal-modal-inner">
+// 	<!-- usual modal content -->
+// 	</div>
+// </div>
 $reveal-fixed-width: ($row-width + rem-calc(200)) !default;
 
 .reveal-modal-alt {
