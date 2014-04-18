@@ -17,14 +17,14 @@ git clone https://github.com/mrpavlikov/kelnik-foundation.git
 npm install && bower install
 ```
 
-При работе запускаем watcher
+Перед работой запускаем watcher
 
 `gulp`
 
-Усе
-
 ## Структура папок
 
-  * `src/scss/_settings.scss`: Foundation configuration settings
-  * `src/scss/app.scss`: Application styles
-  * `src/js`: Javascript sources
+  * `src/scss/_settings.scss`: Конфигурационный файл Foundation
+  * `src/scss/_settings_common.scss`: Конфигурационный файл наших наработок
+  * `src/scss/_common.scss`: Набор стандартных хаков
+  * `src/scss/app.scss`: Стили приложения
+  * `src/js`: Исходники javascript
