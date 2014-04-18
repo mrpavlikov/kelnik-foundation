@@ -1,0 +1,67 @@
+@import "settings_common";
+// SEO fix for header
+.top-bar .name .site-name{
+		line-height: $topbar-height;
+		font-size: $topbar-title-font-size;
+		margin: 0;
+		a {
+				font-weight: $topbar-title-weight;
+				color: $topbar-link-color;
+				width: 50%;
+				display: block;
+				padding: 0 $topbar-link-padding;
+		}
+}
+
+@media #{$topbar-media-query} {
+		.top-bar .name .site-name a { width: auto; }
+}
+
+// Reflow hack for image height
+.embed-container {
+	position: relative;
+	height: 0;
+	overflow: hidden;
+}
+
+.embed-container img{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width:100%;
+}
+
+.ratio-16-9 { padding-bottom: $ratio-16-9; }
+.ratio-4-3  { padding-bottom: $ratio-4-3; }
+.ratio-1-1  { padding-bottom: $ratio-1-1; }
+
+// Hack for modal with max-width
+$reveal-fixed-width: ($row-width + rem-calc(200)) !default;
+.reveal-modal-alt {
+	padding: 0;
+	background: transparent;
+	border: none;
+	box-shadow: none;
+
+	.reveal-modal-inner {
+		margin: 0 auto;
+		position: relative;
+		max-width: $reveal-fixed-width;
+
+		@media #{$small-only} {
+			min-height:100vh;
+		}
+
+		@media #{$medium-up} {
+			@include reveal-modal-style($padding:$reveal-modal-padding * 1.5);
+		}
+
+		@include reveal-modal-style(
+			$bg:$reveal-modal-bg,
+			$padding:$reveal-modal-padding,
+			$border:true,
+			$box-shadow:true,
+			$radius:false
+		);
+	}
+}

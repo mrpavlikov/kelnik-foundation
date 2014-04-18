@@ -1,39 +1,6 @@
 @import "settings";
 @import "foundation";
-
-.top-bar .name .site-name{
-        line-height: $topbar-height;
-        font-size: $topbar-title-font-size;
-        margin: 0;
-        a {
-                font-weight: $topbar-title-weight;
-                color: $topbar-link-color;
-                width: 50%;
-                display: block;
-                padding: 0 $topbar-link-padding;
-        }
-}
-
-@media #{$topbar-media-query} {
-        .top-bar .name .site-name a { width: auto; }
-}
-
-.embed-container {
-    position: relative;
-    height: 0;
-    overflow: hidden;
-}
-
-.embed-container img{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width:100%;
-}
-
-.ratio-16-9 { padding-bottom: $ratio-16-9; }
-.ratio-4-3  { padding-bottom: $ratio-4-3; }
-.ratio-1-1  { padding-bottom: $ratio-1-1; }
+@import "common";
 
 // Or selectively include components
 // @import
