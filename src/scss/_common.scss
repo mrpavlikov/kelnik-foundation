@@ -45,30 +45,32 @@
 $reveal-fixed-width: ($row-width + rem-calc(200)) !default;
 
 .reveal-modal-alt {
-	padding: 0;
-	background: transparent;
-	border: none;
-	box-shadow: none;
+	// padding: 0;
+	// background: transparent;
+	// border: none;
+	// box-shadow: none;
+	margin: 0 auto;
+	max-width: $reveal-fixed-width;
 
-	.reveal-modal-inner {
-		margin: 0 auto;
-		position: relative;
-		max-width: $reveal-fixed-width;
+	// .reveal-modal-inner {
+	// 	margin: 0 auto;
+	// 	position: relative;
+	// 	max-width: $reveal-fixed-width;
 
-		@media #{$small-only} {
-			min-height: 100vh;
-		}
+	// 	@media #{$small-only} {
+	// 		min-height: 100vh;
+	// 	}
 
-		@media #{$medium-up} {
-			@include reveal-modal-style($padding:$reveal-modal-padding * 1.5);
-		}
+	// 	@media #{$medium-up} {
+	// 		@include reveal-modal-style($padding:$reveal-modal-padding * 1.5);
+	// 	}
 
-		@include reveal-modal-style(
-			$bg: $reveal-modal-bg,
-			$padding: $reveal-modal-padding,
-			$border: true,
-			$box-shadow: true,
-			$radius: false
-		);
-	}
+	// 	@include reveal-modal-style(
+	// 		$bg: $reveal-modal-bg,
+	// 		$padding: $reveal-modal-padding,
+	// 		$border: true,
+	// 		$box-shadow: true,
+	// 		$radius: false
+	// 	);
+	// }
 }
