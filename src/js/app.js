@@ -6,8 +6,10 @@
 	}
 }(this, function ($) {
 	$(function() {
+		// Инициализация фреймворка Foundation
 		$(document).foundation({});
 
+		// Подключение плагина Fotorama
 		$('.fotorama').each(function() {
 			var f = $(this);
 			require(['fotorama'], function() {
@@ -15,6 +17,7 @@
 			});
 		});
 
+		// Подключение Яндекс карт
 		(function(cont) {
 			if (!cont.length) return;
 
