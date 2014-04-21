@@ -21,7 +21,7 @@
 		(function(cont) {
 			if (!cont.length) return;
 
-			require(['yamap'], function(){
+			require(['ymaps'], function(){
 				ymaps.ready(initMap);
 			});
 

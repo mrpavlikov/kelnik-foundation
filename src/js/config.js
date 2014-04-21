@@ -31,7 +31,7 @@
 		'modernizr': 'vendor/modernizr/modernizr',
 		'placeholder': 'vendor/jquery-placeholder/jquery.placeholder',
 		'fotorama': 'vendor/fotorama/fotorama',
-		'yamap': '//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU'
+		'ymaps': '//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU'
 	},
 	shim: {
 		'foundation': {
