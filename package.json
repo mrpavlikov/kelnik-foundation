@@ -1,8 +1,13 @@
 {
-  "name": "foundation-libsass-template",
+  "name": "kelnik-foundation",
   "version": "0.0.1",
+  "author": "Vladimir Pavlikov <theitzamna@gmail.com>",
   "scripts": {
     "postinstall": "node_modules/.bin/bower install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mrpavlikov/kelnik-foundation"
   },
   "devDependencies": {
     "node-sass": "~0.7.0",
