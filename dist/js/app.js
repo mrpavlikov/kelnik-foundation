@@ -33,6 +33,13 @@
 			});
 		})($('#map'));
 
+		require(['map'], function(mapRoute) {
+			mapRoute.init({
+				tpl: tpl
+			});
+
+		});
+
 		require(['templates/hello', 'helpers'], function(template) {
 			console.log(template({
 				name: 'Pavlikov'
