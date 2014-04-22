@@ -1,8 +1,9 @@
-/* Foundation was made by ZURB, an interaction design and design strategy firm in Campbell, CA */
-/* zurb.com */
+/* Site was made by Kelnik Studios, interactive agency in Saint-Petersburg, Russia */
+/* kelnik.ru */
 /* humanstxt.org */
 
 /* SITE */
-  Standards: HTML5, CSS3
-  Components: jQuery, Orbit, Reveal
-  Software: Coda, Textmate, Git
+	Standards: HTML5, CSS3
+	Language: Russian
+	Components: jQuery, Foundation
+	Software: Sublime Text, Photoshop, Git
