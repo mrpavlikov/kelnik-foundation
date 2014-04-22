@@ -4,6 +4,8 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var plumber = require('gulp-plumber');
 var minifycss = require('gulp-minify-css');
+var handlebars = require('gulp-handlebars');
+var defineModule = require('gulp-define-module');
 // var concat = require('gulp-concat');
 // var rebaseUrls = require('gulp-css-rebase-urls');
 
@@ -15,7 +17,9 @@ var onError = function (err) {
 var paths = {
 	scripts: ['dist/js/*.js'],
 	sass: ['dist/scss/*.scss'],
+	templates: ['dist/templates/*.hbs']
 };
+
 
 // Compile Sass
 gulp.task('sass', function() {
@@ -72,10 +76,26 @@ gulp.task('js', function() {
 	;
 });
 
+// Compile templates
+gulp.task('templates', function(){
+  gulp.src(paths.templates)
+  	.pipe(plumber({
+		errorHandler: onError
+	}))
+    .pipe(handlebars())
+    .pipe(plumber.stop())
+    .pipe(defineModule('amd'))
+    .pipe(uglify({
+		outSourceMap: false
+	}))
+    .pipe(gulp.dest('www/js/templates/'));
+});
+
 // Watch
-gulp.task('watch', ['css', 'js'], function(event) {
+gulp.task('watch', ['css', 'js', 'templates'], function(event) {
 	gulp.watch(paths.sass, ['css']);
 	gulp.watch(paths.scripts, ['js']);
+	gulp.watch(paths.templates, ['templates']);
 });
 
 // Run
