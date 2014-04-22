@@ -1,6 +1,9 @@
 {
   "name": "foundation-libsass-template",
   "version": "0.0.1",
+  "scripts": {
+    "postinstall": "node_modules/.bin/bower install"
+  },
   "devDependencies": {
     "node-sass": "~0.7.0",
     "gulp-sass": "~0.7.1",
