@@ -145,6 +145,9 @@ require.config({
 		'fotorama': {
 			deps: ['jquery'],
 			exports: 'jQuery.fn.fotorama'
+		},
+		'ymaps': {
+			exports: 'ymaps'
 		}
 	},
 	deps: [
