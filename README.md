@@ -14,6 +14,7 @@
 
 ```bash
 git clone https://github.com/mrpavlikov/kelnik-foundation.git
+cd kelnik-foundation
 npm install && bower install
 ```
 
@@ -23,8 +24,8 @@ npm install && bower install
 
 ## Структура папок
 
-  * `src/scss/_settings.scss`: Конфигурационный файл Foundation
-  * `src/scss/_settings_common.scss`: Конфигурационный файл наших наработок
-  * `src/scss/_common.scss`: Набор стандартных хаков
-  * `src/scss/app.scss`: Стили приложения
-  * `src/js`: Исходники javascript
+  * `dist/scss/_settings.scss`: Конфигурационный файл Foundation
+  * `dist/scss/_settings_common.scss`: Конфигурационный файл наших наработок
+  * `dist/scss/_common.scss`: Набор стандартных хаков
+  * `dist/scss/app.scss`: Стили приложения
+  * `dist/js`: Исходники javascript

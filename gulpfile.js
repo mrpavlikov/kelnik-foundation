@@ -13,8 +13,8 @@ var onError = function (err) {
 };
 
 var paths = {
-	scripts: ['src/js/*.js'],
-	sass: ['src/scss/*.scss'],
+	scripts: ['dist/js/*.js'],
+	sass: ['dist/scss/*.scss'],
 };
 
 // Compile Sass
@@ -24,17 +24,17 @@ gulp.task('sass', function() {
 			errorHandler: onError
 		}))
 		.pipe(sass({
-			includePaths: ['scss', 'js/vendor/foundation/scss'],
+			includePaths: ['scss', 'www/js/vendor/foundation/scss'],
 			outputStyle: 'expanded'
 		}))
 		.pipe(plumber.stop())
-		.pipe(gulp.dest('css'))
+		.pipe(gulp.dest('www/css'))
 	;
 });
 
 // Concat all css in one
 gulp.task('css', ['sass'], function() {
-	gulp.src(['css/*.css'])
+	gulp.src(['www/css/*.css'])
 		.pipe(plumber({
 			errorHandler: onError
 		}))
@@ -42,13 +42,13 @@ gulp.task('css', ['sass'], function() {
 		// .pipe(concat('style.css'))
 		.pipe(minifycss())
 		.pipe(plumber.stop())
-		.pipe(gulp.dest('css'))
+		.pipe(gulp.dest('www/css'))
 	;
 });
 
 // Uglify js
 gulp.task('js', function() {
-	gulp.src(paths.scripts, {base: 'src/js'})
+	gulp.src(paths.scripts, {base: 'dist/js'})
 		.pipe(plumber({
 			errorHandler: onError
 		}))
@@ -56,10 +56,10 @@ gulp.task('js', function() {
 			outSourceMap: false
 		}))
 		.pipe(plumber.stop())
-		.pipe(gulp.dest('js'))
+		.pipe(gulp.dest('www/js'))
 	;
 
-	gulp.src(['js/vendor/requirejs/require.js'], { base: process.cwd() })
+	gulp.src(['www/js/vendor/requirejs/require.js'], { base: process.cwd() })
 		.pipe(plumber({
 			errorHandler: onError
 		}))

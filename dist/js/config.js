@@ -8,7 +8,7 @@ require.config({
 		'jquery': 'vendor/jquery/dist/jquery.min',
 
 		/* Foundation */
-		// 'foundation': 'vendor/foundation/js/foundation.min',
+		'foundation': 'vendor/foundation/js/foundation.min',
 		// 'foundation.core': 'vendor/foundation/js/foundation/foundation',
 		// 'foundation.abide': 'vendor/foundation/js/foundation/foundation.abide',
 		// 'foundation.accordion': 'vendor/foundation/js/foundation/foundation.accordion',
