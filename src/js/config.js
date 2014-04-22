@@ -35,103 +35,66 @@ require.config({
 		'ymaps': '//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU'
 	},
 	shim: {
+		/* Foundation all in one */
 		'foundation': {
-			deps: [
-			'jquery',
-			'modernizr'
-			],
+			deps: ['jquery', 'modernizr'],
 			exports: 'Foundation'
 		},
-		/* Foundation */
+
+		/* Foundation modules */
 		'foundation.core': {
-			deps: [
-			'jquery',
-			'modernizr'
-			],
+			deps: ['jquery', 'modernizr'],
 			exports: 'Foundation'
 		},
 		'foundation.abide': {
-			deps: [
-			'foundation.core'
-			]
+			deps: ['foundation.core']
 		},
 		'foundation.accordion': {
-			deps: [
-			'foundation.core'
-			]
+			deps: ['foundation.core']
 		},
 		'foundation.alert': {
-			deps: [
-			'foundation.core'
-			]
+			deps: ['foundation.core']
 		},
 		'foundation.clearing': {
-			deps: [
-			'foundation.core'
-			]
+			deps: ['foundation.core']
 		},
 		'foundation.dropdown': {
-			deps: [
-			'foundation.core'
-			]
+			deps: ['foundation.core']
 		},
 		'foundation.equalizer': {
-			deps: [
-			'foundation.core'
-			]
+			deps: ['foundation.core']
 		},
 		'foundation.interchange': {
-			deps: [
-			'foundation.core'
-			]
+			deps: ['foundation.core']
 		},
 		'foundation.joyride': {
-			deps: [
-			'foundation.core',
-			'jquery.cookie'
-			]
+			deps: ['foundation.core', 'jquery.cookie']
 		},
 		'foundation.magellan': {
-			deps: [
-			'foundation.core'
-			]
+			deps: ['foundation.core']
 		},
 		'foundation.offcanvas': {
-			deps: [
-			'foundation.core'
-			]
+			deps: ['foundation.core']
 		},
 		'foundation.orbit': {
-			deps: [
-			'foundation.core'
-			]
+			deps: ['foundation.core']
 		},
 		'foundation.reveal': {
-			deps: [
-			'foundation.core'
-			]
+			deps: ['foundation.core']
 		},
 		'foundation.tab': {
-			deps: [
-			'foundation.core'
-			]
+			deps: ['foundation.core']
 		},
 		'foundation.tooltip': {
-			deps: [
-			'foundation.core'
-			]
+			deps: ['foundation.core']
 		},
 		'foundation.topbar': {
-			deps: [
-			'foundation.core'
-			]
+			deps: ['foundation.core']
 		},
 
 		/* Vendor Scripts */
 		'jquery.cookie': {
-			deps: [
-			'jquery'
-			]
+			deps: ['jquery']
 		},
 		'fastclick': {
 			exports: 'FastClick'
@@ -150,7 +113,6 @@ require.config({
 			exports: 'ymaps'
 		}
 	},
-	deps: [
-	'app'
-	]
+	/* Launch app.js after config */
+	deps: ['app']
 });
