@@ -2,7 +2,7 @@
  * Require config
  */
 require.config({
-	urlArgs: 'v=1',
+	urlArgs: 'v=2',
 	paths: {
 		/* jQuery */
 		'jquery': 'vendor/jquery/dist/jquery.min',
