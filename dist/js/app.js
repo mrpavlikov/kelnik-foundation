@@ -32,6 +32,12 @@
 				}
 			});
 		})($('#map'));
+
+		require(['templates/hello', 'helpers'], function(template) {
+			console.log(template({
+				name: 'Pavlikov'
+			}));
+		});
 	});
 
 	return {};
