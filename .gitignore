@@ -1,4 +1,4 @@
 *.DS_Store
-/css/*
-/js/*
+/www/css/*
+/www/js/*
 /node_modules/*
