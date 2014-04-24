@@ -29,3 +29,4 @@ npm install
   * `dist/scss/_common.scss`: Набор стандартных хаков
   * `dist/scss/app.scss`: Стили приложения
   * `dist/js`: Исходники javascript
+  * `dist/templates`: Исходники шаблонов Handlebars
