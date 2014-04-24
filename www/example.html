@@ -7,9 +7,75 @@
 		<link type="text/plain" rel="author" href="/humans.txt" />
 		<link rel="stylesheet" href="/js/vendor/fotorama/fotorama.css" />
 		<link rel="stylesheet" href="/css/app.css" />
-		<script src="/js/vendor/requirejs/require.min.js" data-main="/js/config.js?v=3"></script>
+		<script src="/js/vendor/requirejs/require.min.js" data-main="/js/config.js?v=4"></script>
 	</head>
 	<body>
+		<a href="http://kelnik.ru" target="_blank" id="ks" class="ks" data-hover-text="в Кельнике">
+		    Сделано <br><span>для тех, кто едет</span>
+		</a>
+
+		<div class="row">
+			<div class="column">
+				<form data-abide action="/form.php">
+					<fieldset>
+						<legend>Форма например</legend>
+
+						<!-- <div class="row">
+							<div class="medium-6 columns">
+								<label for="fio">ФИО <small>required</small>
+								<input type="text" id="fio" placeholder="Иванов Петр Сергеевич" name="fio" required pattern="full_name">
+								</label>
+								<small class="error">Введите корректные фамилию, имя и отчество</small>
+							</div>
+							<div class="medium-6 columns">
+								<label for="name">Имя <small>required</small>
+								<input type="text" id="name" placeholder="Петр" name="name" required pattern="name">
+								</label>
+								<small class="error">Введите имя</small>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="large-12 columns">
+								<label for="password">Пароль <small>required</small>
+								<input type="password" id="password" placeholder="Passw0rdzR." name="password" required>
+								</label>
+								<small class="error">Пароль должен содержать как минимум 8 символов, пробелы запрещены</small>
+							</div>
+							<div class="large-12 columns">
+								<label for="confirmPassword">Подтверждение пароля <small>required</small>
+								<input type="password" id="confirmPassword" placeholder="Passw0rdzR." name="confirmPassword" required data-equalto="password">
+								</label>
+								<small class="error">Пароли должны совпадать</small>
+							</div>
+						</div> -->
+
+
+						<div class="row">
+							<div class="large-12 columns">
+								<label for="phone">Телефон
+								<input type="text" name="phone" id="phone" placeholder="+7 921 7370022" required pattern="phone">
+								</label>
+								<small class="error">Введите корректный телефонный номер</small>
+							</div>
+						</div>
+						<div class="row">
+							<div class="large-12 columns">
+							<hr>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="large-12 columns">
+							<button type="submit" class="medium button green">Отправить</button>
+						</div>
+					</div>
+
+					</fieldset>
+				</form>
+			</div>
+		</div>
+
 		<div class="row">
 			<div class="large-12 columns">
 				<div id="fotorama" class="fotorama embed-container ratio-16-9"
