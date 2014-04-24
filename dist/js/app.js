@@ -7,10 +7,12 @@
 }(this, function ($) {
 	$(function() {
 		// Инициализация фреймворка Foundation
-		$(document).foundation({});
+		$(document).foundation({
+
+		});
 
 		// Подключение плагина Fotorama
-		$('.fotorama').each(function() {
+		$('#fotorama').each(function() {
 			var f = $(this);
 			require(['fotorama'], function() {
 				f.fotorama({});
@@ -25,7 +27,7 @@
 				ymaps.ready(initMap);
 
 				function initMap() {
-					var myMap = new ymaps.Map(cont.attr('id'), {
+					new ymaps.Map(cont.attr('id'), {
 						center: [60.153151, 30.286574],
 						zoom: 13
 					});

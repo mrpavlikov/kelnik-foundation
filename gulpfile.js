@@ -78,17 +78,17 @@ gulp.task('js', function() {
 
 // Compile templates
 gulp.task('templates', function(){
-  gulp.src(paths.templates)
-  	.pipe(plumber({
-		errorHandler: onError
-	}))
-    .pipe(handlebars())
-    .pipe(plumber.stop())
-    .pipe(defineModule('amd'))
-    .pipe(uglify({
-		outSourceMap: false
-	}))
-    .pipe(gulp.dest('www/js/templates/'));
+ 	gulp.src(paths.templates)
+		.pipe(plumber({
+			errorHandler: onError
+		}))
+		.pipe(handlebars())
+		.pipe(plumber.stop())
+		.pipe(defineModule('amd'))
+		.pipe(uglify({
+			outSourceMap: false
+		}))
+		.pipe(gulp.dest('www/js/templates/'));
 });
 
 // Watch
