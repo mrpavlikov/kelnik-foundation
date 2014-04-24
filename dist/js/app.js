@@ -1,4 +1,5 @@
 define(['jquery', 'foundation'], function($) {
+
 	$(function() {
 		// Инициализация фреймворка Foundation
 		$(document).foundation({
