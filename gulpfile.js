@@ -3,11 +3,8 @@ var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var plumber = require('gulp-plumber');
-var minifycss = require('gulp-minify-css');
 var handlebars = require('gulp-handlebars');
 var defineModule = require('gulp-define-module');
-// var concat = require('gulp-concat');
-// var rebaseUrls = require('gulp-css-rebase-urls');
 
 var onError = function (err) {
 	console.error('Error in plugin ' + err.plugin + "\n" +
@@ -29,26 +26,13 @@ gulp.task('sass', function() {
 		}))
 		.pipe(sass({
 			includePaths: ['scss', 'www/js/vendor/foundation/scss'],
-			outputStyle: 'expanded'
+			outputStyle: 'compressed'
 		}))
 		.pipe(plumber.stop())
 		.pipe(gulp.dest('www/css'))
 	;
 });
 
-// Concat all css in one
-gulp.task('css', ['sass'], function() {
-	gulp.src(['www/css/*.css'])
-		.pipe(plumber({
-			errorHandler: onError
-		}))
-		// .pipe(rebaseUrls())
-		// .pipe(concat('style.css'))
-		.pipe(minifycss())
-		.pipe(plumber.stop())
-		.pipe(gulp.dest('www/css'))
-	;
-});
 
 // Uglify js
 gulp.task('js', function() {
@@ -92,8 +76,8 @@ gulp.task('templates', function(){
 });
 
 // Watch
-gulp.task('watch', ['css', 'js', 'templates'], function(event) {
-	gulp.watch(paths.sass, ['css']);
+gulp.task('watch', ['sass', 'js', 'templates'], function(event) {
+	gulp.watch(paths.sass, ['sass']);
 	gulp.watch(paths.scripts, ['js']);
 	gulp.watch(paths.templates, ['templates']);
 });
