@@ -73,3 +73,8 @@ $reveal-fixed-width: ($row-width + rem-calc(200)) !default;
 		);
 	}
 }
+
+// fix for tabs
+.tabs-content .content:not(.active) {
+	display: none;
+}
