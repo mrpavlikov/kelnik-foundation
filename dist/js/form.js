@@ -17,10 +17,11 @@ define(['jquery', 'foundation'], function($) {
 			: $('#' + form);
 
 		this.submitBtn = this.form.find('[type=submit]');
-		this.initModal();
 	};
 
 	Form.prototype.initModal = function() {
+		if (this.modal) return;
+
 		var modal = this.form.find('.reveal-modal');
 		if (!modal.length) {
 			modal = $('<div class="reveal-modal reveal-modal-alt" data-reveal>' +
@@ -94,6 +95,7 @@ define(['jquery', 'foundation'], function($) {
 	Form.prototype.popup = function(html) {
 		var self = this;
 
+		self.initModal();
 		self.modal.find('.js-alert').html(html);
 		self.modal.foundation('reveal', 'open');
 	};
