@@ -6,6 +6,7 @@ define(['jquery', 'foundation'], function($) {
 		this.opts = {
 			successTpl: 'form_success',
 			errorTpl: 'form_error',
+			popupTpl: 'form_popup',
 			errorText: 'Внутренняя ошибка, пожалуйста, повторите запрос позднее',
 			successText: 'Форма успешно отправлена'
 		};
@@ -17,23 +18,6 @@ define(['jquery', 'foundation'], function($) {
 			: $('#' + form);
 
 		this.submitBtn = this.form.find('[type=submit]');
-	};
-
-	Form.prototype.initModal = function() {
-		if (this.modal) return;
-
-		var modal = this.form.find('.reveal-modal');
-		if (!modal.length) {
-			modal = $('<div class="reveal-modal reveal-modal-alt" data-reveal>' +
-						'<div class="reveal-modal-inner">' +
-							'<div class="js-alert"></div>' +
-							'<a class="close-reveal-modal">&#215;</a>' +
-						'</div>' +
-					'</div>');
-			this.form.append(modal);
-			modal.foundation('reveal');
-		}
-		this.modal = modal;
 	};
 
 	Form.prototype.init = function() {
@@ -52,6 +36,7 @@ define(['jquery', 'foundation'], function($) {
 		var self = this;
 
 		self.submitBtn.prop('disabled', true);
+		$(':focus').blur();
 
 		$.ajax({
 			url: self.form.attr('action') || location,
@@ -95,9 +80,24 @@ define(['jquery', 'foundation'], function($) {
 	Form.prototype.popup = function(html) {
 		var self = this;
 
-		self.initModal();
-		self.modal.find('.js-alert').html(html);
-		self.modal.foundation('reveal', 'open');
+		var dfd = new $.Deferred();
+
+		dfd.done(function() {
+			self.modal.find('.js-alert').html(html);
+			self.modal.foundation('reveal', 'open');
+		});
+
+		if (self.modal) {
+			dfd.resolve();
+		} else {
+			require(['templates/' + self.opts.popupTpl], function(tpl) {
+				var modal = $(tpl());
+				self.form.append(modal);
+				modal.foundation('reveal');
+				self.modal = modal;
+				dfd.resolve();
+			});
+		}
 	};
 
 	Form.prototype.handleSuccess = function(data) {
