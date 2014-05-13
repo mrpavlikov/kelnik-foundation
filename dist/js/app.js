@@ -5,22 +5,38 @@ define(['jquery', 'foundation'], function($) {
 		$(document).foundation({
 			abide: {
 				patterns: {
-					phone: /^\+?[0-9]{1,4}[ ]?[0-9]{1,5}[ ]?[0-9](\-?[0-9]){2,6}\-?[0-9]$/,
-					password: /^[^\s]{8,}$/,
+					phone: /^(\+[ ]?)?[0-9]{1,4}[ ]?([0-9]{1,5}|[(][0-9]{1,5}[)])[ ]?[0-9]([\- ]?[0-9]){2,6}[\- ]?[0-9]$/,
+					password: /^[^\s]{6,}$/,
 					name: /^[а-я](\-?[а-я])*\-?[а-я]$/i,
 					full_name: /^([а-я](\-?[а-я])*\-?[а-я][ ]){2}[а-я](\-?[а-я])*\-?[а-я]$/i
-				}
+				},
+				live_validate: false
 			}
 		});
 
-		$('form').submit(function() {
-			var form = $(this);
-			var input = form.find('input[name="phone"]');
-			alert(input.length);
-			input.addClass('has-tip');
-			input.attr('title', 'tooltip');
-			return false;
-		});
+		(function(forms) {
+			if (!forms.length) return;
+			require(['form'], function(Form) {
+				forms.each(function() {
+					var form = new Form($(this));
+
+					// form.onSuccess = function(data) {
+					// 	alert('Custom on success');
+					// 	console.log(data);
+					// 	return true; // чтобы отменить стандартный обработчик
+					// }
+
+					// form.onError = function(data) {
+					// 	alert('Custom on error');
+					// 	console.log(data);
+					// 	return true; // чтобы отменить стандартный обработчик
+					// }
+
+					form.init();
+				});
+			});
+		})($('form'));
+
 
 		// Подключение плагина Fotorama
 		$('#fotorama').each(function() {
