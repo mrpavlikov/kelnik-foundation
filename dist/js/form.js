@@ -41,7 +41,8 @@ define(['jquery', 'foundation'], function($) {
 		$.ajax({
 			url: self.form.attr('action') || location,
 			data: self.form.serialize(),
-			method: self.form.attr('method') || 'post'
+			method: self.form.attr('method') || 'post',
+			dataType: 'json'
 		})
 			.done(function(data) {
 				var method = data.ret
