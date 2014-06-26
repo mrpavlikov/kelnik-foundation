@@ -1,4 +1,4 @@
-define(['handlebars'], function onPluginsLoaded(Handlebars) {
+define(['handlebars'], function helpersModule(Handlebars) {
     'use strict';
 
     Handlebars.registerHelper('mr', function mr(text) {

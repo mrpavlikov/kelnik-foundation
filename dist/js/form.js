@@ -1,4 +1,4 @@
-define(['jquery', 'foundation'], function($) {
+define(['jquery', 'foundation'], function formModule($) {
     'use strict';
 
     /**
