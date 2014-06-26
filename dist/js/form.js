@@ -1,127 +1,128 @@
 define(['jquery', 'foundation'], function($) {
-	var Form = function(form, opts) {
-		this.onSuccess = null;
-		this.onError = null;
+    'use strict';
 
-		this.opts = {
-			successTpl: 'form_success',
-			errorTpl: 'form_error',
-			popupTpl: 'form_popup',
-			errorText: 'Внутренняя ошибка, пожалуйста, повторите запрос позднее',
-			successText: 'Форма успешно отправлена'
-		};
+    var Form = function(form, opts) {
 
-		$.extend(this.opts, opts || {});
+        this.onSuccess = null;
+        this.onError = null;
 
-		this.form = ('object' === typeof form)
-			? form
-			: $('#' + form);
+        this.opts = {
+            successTpl: 'form_success',
+            errorTpl: 'form_error',
+            popupTpl: 'form_popup',
+            errorText: 'Внутренняя ошибка, пожалуйста, ' +
+                       'повторите запрос позднее',
+            successText: 'Форма успешно отправлена'
+        };
 
-		this.submitBtn = this.form.find('[type=submit]');
-	};
+        $.extend(this.opts, opts || {});
 
-	Form.prototype.init = function() {
-		var self = this;
+        this.form = ('object' === typeof form) ?
+                    form :
+                    $('#' + form);
 
-		self.form.on('valid', function() {
-			self.send();
-		});
+        this.submitBtn = this.form.find('[type=submit]');
+    };
 
-		self.form.submit(function() {
-			return false;
-		});
-	};
+    Form.prototype.init = function() {
+        var self = this;
 
-	Form.prototype.send = function() {
-		var self = this;
+        self.form.on('valid', function() {
+            self.send();
+        });
 
-		self.submitBtn.prop('disabled', true);
-		$(':focus').blur();
+        self.form.submit(function() {
+            return false;
+        });
+    };
 
-		$.ajax({
-			url: self.form.attr('action') || location,
-			data: self.form.serialize(),
-			type: self.form.attr('method') || 'post',
-			dataType: 'json'
-		})
-			.done(function(data) {
-				var method = data.ret
-					? 'handleSuccess'
-					: 'handleError';
+    Form.prototype.send = function() {
+        var self = this;
 
-				self[method](data);
-			})
-			.fail(function() {
-				self.handleError({
-					message: self.opts.errorText
-				});
-			})
-			.always(function() {
-				self.submitBtn.prop('disabled', false);
-			});
-	};
+        self.submitBtn.prop('disabled', true);
+        $(':focus').blur();
 
-	Form.prototype.handleError = function(data) {
-		var self = this;
+        $.ajax({
+            url: self.form.attr('action') || location,
+            data: self.form.serialize(),
+            type: self.form.attr('method') || 'post',
+            dataType: 'json'
+        })
+            .done(function(data) {
+                var method = data.ret ? 'handleSuccess' : 'handleError';
+                self[method](data);
+            })
+            .fail(function() {
+                self.handleError({
+                    message: self.opts.errorText
+                });
+            })
+            .always(function() {
+                self.submitBtn.prop('disabled', false);
+            });
+    };
 
-		if (self.onError && ('function' === typeof self.onError)) {
-			var ret = self.onError(data);
-			if (ret) return;
-		}
+    Form.prototype.handleError = function(data) {
+        var self = this;
 
-		require(['templates/' + self.opts.errorTpl], function(tpl) {
-			var html = tpl({
-				header: 'Ошибка!',
-				message: data.message || self.opts.errorText
-			});
-			self.popup(html);
-		});
-	};
+        if (self.onError && ('function' === typeof self.onError)) {
+            var ret = self.onError(data);
+            if (ret) { return; }
+        }
 
-	Form.prototype.popup = function(html) {
-		var self = this;
+        require(['templates/' + self.opts.errorTpl], function(tpl) {
+            var html = tpl({
+                header: 'Ошибка!',
+                message: data.message || self.opts.errorText
+            });
+            self.popup(html);
+        });
+    };
 
-		var dfd = new $.Deferred();
+    Form.prototype.popup = function(html) {
+        var self = this;
 
-		dfd.done(function() {
-			self.modal.find('.js-alert').html(html);
-			self.modal.foundation('reveal', 'open');
-		});
+        var dfd = new $.Deferred();
 
-		if (self.modal) {
-			dfd.resolve();
-		} else {
-			require(['templates/' + self.opts.popupTpl], function(tpl) {
-				var modal = $(tpl());
-				self.form.append(modal);
-				modal.foundation('reveal');
-				self.modal = modal;
-				dfd.resolve();
-			});
-		}
-	};
+        dfd.done(function() {
+            self.modal.find('.js-alert').html(html);
+            self.modal.foundation('reveal', 'open');
+        });
 
-	Form.prototype.handleSuccess = function(data) {
-		var self = this;
+        if (self.modal) {
+            dfd.resolve();
+        } else {
+            require(['templates/' + self.opts.popupTpl], function(tpl) {
+                var modal = $(tpl());
+                self.form.append(modal);
+                modal.foundation('reveal');
+                self.modal = modal;
+                dfd.resolve();
+            });
+        }
+    };
 
-		if (data.redirect) {
-			location.href = data.redirect;
-			return;
-		}
+    Form.prototype.handleSuccess = function(data) {
+        var self = this;
 
-		if (self.onSuccess && ('function' === typeof self.onSuccess)) {
-			var ret = self.onSuccess(data);
-			if (ret) return;
-		}
+        if (data.redirect) {
+            location.href = data.redirect;
+            return;
+        }
 
-		require(['templates/' + self.opts.successTpl], function(tpl) {
-			var html = tpl({
-				header: 'Спасибо!',
-				message: data.message || self.opts.successText
-			});
-			self.form.replaceWith(html);
-		});
-	};
+        if (self.onSuccess && ('function' === typeof self.onSuccess)) {
+            var ret = self.onSuccess(data);
+            if (ret) { return; }
+        }
 
-	return Form;
+        require(['templates/' + self.opts.successTpl], function(tpl) {
+            var html = tpl({
+                header: 'Спасибо!',
+                message: data.message || self.opts.successText
+            });
+            self.form.replaceWith(html);
+        });
+    };
+
+    return Form;
 });
