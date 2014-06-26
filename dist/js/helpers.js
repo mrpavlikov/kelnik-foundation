@@ -1,12 +1,13 @@
-define(['handlebars'], function(Handlebars) {
+define(['handlebars'], function onPluginsLoaded(Handlebars) {
+    'use strict';
 
-	Handlebars.registerHelper('mr', function(text) {
-		return 'mr. ' + text;
-	});
+    Handlebars.registerHelper('mr', function mr(text) {
+        return 'mr. ' + text;
+    });
 
-	Handlebars.registerHelper('mrs', function(text) {
-		return 'mrs. ' + text;
-	});
+    Handlebars.registerHelper('mrs', function mrs(text) {
+        return 'mrs. ' + text;
+    });
 
-	return Handlebars;
+    return Handlebars;
 });
