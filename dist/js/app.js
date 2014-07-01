@@ -1,5 +1,6 @@
 define(['jquery', 'foundation'], function application($) {
     'use strict';
+
     // Инициализация фреймворка Foundation
     /* jshint ignore:start */
     $(document).foundation({

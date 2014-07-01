@@ -5,6 +5,8 @@ var rename       = require('gulp-rename');
 var plumber      = require('gulp-plumber');
 var handlebars   = require('gulp-handlebars');
 var defineModule = require('gulp-define-module');
+var jshint       = require('gulp-jshint');
+var stylish      = require('jshint-stylish');
 
 var onError = function(err) {
     'use strict';
@@ -24,7 +26,7 @@ var paths = {
 gulp.task('sass', function sassTask() {
     'use strict';
 
-    gulp.src(paths.sass)
+    return gulp.src(paths.sass)
         .pipe(plumber({
             errorHandler: onError
         }))
@@ -42,7 +44,7 @@ gulp.task('sass', function sassTask() {
 gulp.task('js', function jsTask() {
     'use strict';
 
-    gulp.src(paths.scripts, {base: 'dist/js'})
+    return gulp.src(paths.scripts, {base: 'dist/js'})
         .pipe(plumber({
             errorHandler: onError
         }))
@@ -52,8 +54,11 @@ gulp.task('js', function jsTask() {
         .pipe(plumber.stop())
         .pipe(gulp.dest('www/js'))
     ;
+});
 
-    gulp.src(['www/js/vendor/requirejs/require.js'], { base: process.cwd() }) // jshint ignore:line
+// Uglify vendor scripts
+gulp.task('vendor', function vendorTask() {
+    return gulp.src(['www/js/vendor/requirejs/require.js'], { base: process.cwd() }) // jshint ignore:line
         .pipe(plumber({
             errorHandler: onError
         }))
@@ -72,7 +77,7 @@ gulp.task('js', function jsTask() {
 gulp.task('templates', function templatesTask() {
     'use strict';
 
-    gulp.src(paths.templates)
+    return gulp.src(paths.templates)
         .pipe(plumber({
             errorHandler: onError
         }))
@@ -85,14 +90,35 @@ gulp.task('templates', function templatesTask() {
         .pipe(gulp.dest('www/js/templates/'));
 });
 
+// Jshint linting
+gulp.task('lint', function lintTask() {
+    'use strict';
+
+    return gulp.src(paths.scripts)
+        .pipe(plumber({
+            errorHandler: onError
+        }))
+       .pipe(jshint())
+       .pipe(jshint.reporter(stylish))
+       .pipe(plumber.stop());
+
+});
+
 // Watch
-gulp.task('watch', ['sass', 'js', 'templates'], function watch() {
+gulp.task('watch', function watch() {
     'use strict';
 
     gulp.watch(paths.sass, ['sass']);
-    gulp.watch(paths.scripts, ['js']);
+    gulp.watch(paths.scripts, ['js', 'lint']);
     gulp.watch(paths.templates, ['templates']);
 });
 
 // Run
-gulp.task('default', ['watch']);
+gulp.task('default', [
+    'sass',
+    'vendor',
+    'js',
+    'lint',
+    'templates',
+    'watch'
+]);
