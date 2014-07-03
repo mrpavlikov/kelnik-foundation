@@ -97,7 +97,6 @@
 								<button type="submit" class="medium button green">Отправить</button>
 							</div>
 						</div>
-					</div>
 
 					</fieldset>
 				</form>
@@ -218,7 +217,7 @@
 				<hr />
 
 				<h5>We bet you&rsquo;ll need a form somewhere:</h5>
-				<form>
+				<form name="my_form" method="post">
 					<div class="row">
 						<div class="large-12 columns">
 							<label>Input Label</label>
@@ -248,8 +247,8 @@
 					</div>
 					<div class="row">
 						<div class="large-12 columns">
-							<label>Select Box</label>
-							<select>
+							<label for="select-box">Select Box</label>
+							<select id="select-box">
 								<option value="husker">Husker</option>
 								<option value="starbuck">Starbuck</option>
 								<option value="hotdog">Hot Dog</option>
