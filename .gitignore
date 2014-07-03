@@ -2,3 +2,4 @@
 /www/css/*
 /www/js/*
 /node_modules/*
+*.idea
