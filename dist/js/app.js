@@ -16,6 +16,7 @@ define(['jquery', 'foundation'], function application($) {
     });
     /* jshint ignore:end */
 
+    // Инициализация форм
     (function initForms(forms) {
         if (!forms.length) { return; }
 
@@ -41,7 +42,6 @@ define(['jquery', 'foundation'], function application($) {
             forms.each(init);
         });
     })($('form'));
-
 
     // Подключение плагина Fotorama
     (function initFotorama(list) {

@@ -8,11 +8,17 @@ var defineModule = require('gulp-define-module');
 var jshint       = require('gulp-jshint');
 var stylish      = require('jshint-stylish');
 
+/**
+ * Error function for plumber
+ * @param  {Object} err
+ */
 var onError = function(err) {
     'use strict';
 
-    console.error('Error in plugin ' + err.plugin + '\n' +
-                  'Message: ' + err.message);
+    console.error(
+        'Error in plugin ' + err.plugin + '\n' +
+        'Message: ' + err.message
+    );
 };
 
 var paths = {
@@ -32,19 +38,21 @@ gulp.task('sass', function sassTask() {
         }))
         .pipe(sass({
             includePaths: ['scss', 'www/js/vendor/foundation/scss'],
-            outputStyle : 'compressed'
+            outputStyle: 'compressed'
         }))
         .pipe(plumber.stop())
-        .pipe(gulp.dest('www/css'))
-    ;
+        .pipe(gulp.dest('www/css'));
 });
+
 
 
 // Uglify js
 gulp.task('js', function jsTask() {
     'use strict';
 
-    return gulp.src(paths.scripts, {base: 'dist/js'})
+    return gulp.src(paths.scripts, {
+        base: 'dist/js'
+    })
         .pipe(plumber({
             errorHandler: onError
         }))
@@ -52,13 +60,17 @@ gulp.task('js', function jsTask() {
             outSourceMap: false
         }))
         .pipe(plumber.stop())
-        .pipe(gulp.dest('www/js'))
-    ;
+        .pipe(gulp.dest('www/js'));
 });
+
 
 // Uglify vendor scripts
 gulp.task('vendor', function vendorTask() {
-    return gulp.src(['www/js/vendor/requirejs/require.js'], { base: process.cwd() }) // jshint ignore:line
+    'use strict';
+
+    return gulp.src(['www/js/vendor/requirejs/require.js'], {
+        base: process.cwd() // jshint ignore:line
+    })
         .pipe(plumber({
             errorHandler: onError
         }))
@@ -69,9 +81,10 @@ gulp.task('vendor', function vendorTask() {
             suffix: '.min'
         }))
         .pipe(plumber.stop())
-        .pipe(gulp.dest('.'))
-    ;
+        .pipe(gulp.dest('.'));
+
 });
+
 
 // Compile templates
 gulp.task('templates', function templatesTask() {
@@ -98,20 +111,20 @@ gulp.task('lint', function lintTask() {
         .pipe(plumber({
             errorHandler: onError
         }))
-       .pipe(jshint())
-       .pipe(jshint.reporter(stylish))
-       .pipe(plumber.stop());
-
+        .pipe(jshint())
+        .pipe(jshint.reporter(stylish))
+        .pipe(plumber.stop());
 });
 
 // Watch
 gulp.task('watch', function watch() {
     'use strict';
 
-    gulp.watch(paths.sass, ['sass']);
-    gulp.watch(paths.scripts, ['js', 'lint']);
+    gulp.watch(paths.sass     , ['sass']);
+    gulp.watch(paths.scripts  , ['js', 'lint']);
     gulp.watch(paths.templates, ['templates']);
 });
+
 
 // Run
 gulp.task('default', [
@@ -122,3 +135,4 @@ gulp.task('default', [
     'templates',
     'watch'
 ]);
+
