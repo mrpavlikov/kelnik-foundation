@@ -32,25 +32,22 @@ var paths = {
 gulp.task('sass', function sassTask() {
     'use strict';
 
-    gulp.src(paths.sass)
-        .pipe(plumber({
-            errorHandler: onError
-        }))
+    return gulp.src(paths.sass)
         .pipe(sass({
             includePaths: ['scss', 'www/js/vendor/foundation/scss'],
-            outputStyle: 'compressed'
+            outputStyle: 'compressed',
+            errLogToConsole: true
         }))
-        .pipe(plumber.stop())
         .pipe(gulp.dest('www/css'));
 });
 
 
 
 // Uglify js
-gulp.task('js', function jsTask() {
+gulp.task('js', ['lint'], function jsTask() {
     'use strict';
 
-    gulp.src(paths.scripts, {
+    return gulp.src(paths.scripts, {
         base: 'dist/js'
     })
         .pipe(plumber({
@@ -68,7 +65,7 @@ gulp.task('js', function jsTask() {
 gulp.task('vendor', function vendorTask() {
     'use strict';
 
-    gulp.src(['www/js/vendor/requirejs/require.js'], {
+    return gulp.src(['www/js/vendor/requirejs/require.js'], {
         base: process.cwd() // jshint ignore:line
     })
         .pipe(plumber({
@@ -90,7 +87,7 @@ gulp.task('vendor', function vendorTask() {
 gulp.task('templates', function templatesTask() {
     'use strict';
 
-    gulp.src(paths.templates)
+    return gulp.src(paths.templates)
         .pipe(plumber({
             errorHandler: onError
         }))
@@ -107,7 +104,7 @@ gulp.task('templates', function templatesTask() {
 gulp.task('lint', function lintTask() {
     'use strict';
 
-    gulp.src(paths.scripts)
+    return gulp.src(paths.scripts)
         .pipe(plumber({
             errorHandler: onError
         }))
@@ -121,7 +118,7 @@ gulp.task('watch', function watch() {
     'use strict';
 
     gulp.watch(paths.sass     , ['sass']);
-    gulp.watch(paths.scripts  , ['js', 'lint']);
+    gulp.watch(paths.scripts  , ['js']);
     gulp.watch(paths.templates, ['templates']);
 });
 
@@ -131,7 +128,6 @@ gulp.task('default', [
     'sass',
     'vendor',
     'js',
-    'lint',
     'templates',
     'watch'
 ]);
