@@ -32,7 +32,7 @@ var paths = {
 gulp.task('sass', function sassTask() {
     'use strict';
 
-    return gulp.src(paths.sass)
+    gulp.src(paths.sass)
         .pipe(plumber({
             errorHandler: onError
         }))
@@ -50,7 +50,7 @@ gulp.task('sass', function sassTask() {
 gulp.task('js', function jsTask() {
     'use strict';
 
-    return gulp.src(paths.scripts, {
+    gulp.src(paths.scripts, {
         base: 'dist/js'
     })
         .pipe(plumber({
@@ -68,7 +68,7 @@ gulp.task('js', function jsTask() {
 gulp.task('vendor', function vendorTask() {
     'use strict';
 
-    return gulp.src(['www/js/vendor/requirejs/require.js'], {
+    gulp.src(['www/js/vendor/requirejs/require.js'], {
         base: process.cwd() // jshint ignore:line
     })
         .pipe(plumber({
@@ -90,7 +90,7 @@ gulp.task('vendor', function vendorTask() {
 gulp.task('templates', function templatesTask() {
     'use strict';
 
-    return gulp.src(paths.templates)
+    gulp.src(paths.templates)
         .pipe(plumber({
             errorHandler: onError
         }))
@@ -107,7 +107,7 @@ gulp.task('templates', function templatesTask() {
 gulp.task('lint', function lintTask() {
     'use strict';
 
-    return gulp.src(paths.scripts)
+    gulp.src(paths.scripts)
         .pipe(plumber({
             errorHandler: onError
         }))
