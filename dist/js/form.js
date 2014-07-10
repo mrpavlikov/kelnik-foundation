@@ -34,7 +34,7 @@ define(['jquery', 'foundation'], function formModule($) {
     Form.prototype.init = function() {
         var self = this;
 
-        self.form.on('valid', function send() {
+        self.form.on('valid.fndtn.abide', function send() {
             self.send();
         });
 
@@ -83,19 +83,20 @@ define(['jquery', 'foundation'], function formModule($) {
          */
         if ('function' === typeof self.onError) {
             var ret = self.onError(data);
-            if (ret) { return; }
+            if (ret) {
+                return;
+            }
         }
 
-        require(
-            ['templates/' + self.opts.errorTpl],
-            function onErrorTplLoaded(tpl) {
-                var html = tpl({
-                    header : 'Ошибка!',
-                    message: data.message || self.opts.errorText
-                });
-                self.popup(html);
-            }
-        );
+        require([
+            'templates/' + self.opts.errorTpl
+        ], function onErrorTplLoaded(tpl) {
+            var html = tpl({
+                header : 'Ошибка!',
+                message: data.message || self.opts.errorText
+            });
+            self.popup(html);
+        });
     };
 
     /**
@@ -112,19 +113,20 @@ define(['jquery', 'foundation'], function formModule($) {
 
         if ('function' === typeof self.onSuccess) {
             var ret = self.onSuccess(data);
-            if (ret) { return; }
+            if (ret) {
+                return;
+            }
         }
 
-        require(
-            ['templates/' + self.opts.successTpl],
-            function onSuccessTplLoaded(tpl) {
-                var html = tpl({
-                    header : 'Спасибо!',
-                    message: data.message || self.opts.successText
-                });
-                self.form.replaceWith(html);
-            }
-        );
+        require([
+            'templates/' + self.opts.successTpl
+        ], function onSuccessTplLoaded(tpl) {
+            var html = tpl({
+                header : 'Спасибо!',
+                message: data.message || self.opts.successText
+            });
+            self.form.replaceWith(html);
+        });
     };
 
   /**
@@ -143,15 +145,14 @@ define(['jquery', 'foundation'], function formModule($) {
             return;
         }
 
-        require(
-            ['templates/' + self.opts.popupTpl],
-            function onPopupTplLoaded(tpl) {
-                self.modal = $(tpl());
-                self.modal.appendTo(self.form)
-                          .foundation('reveal');
-                reveal();
-            }
-        );
+        require([
+            'templates/' + self.opts.popupTpl
+        ], function onPopupTplLoaded(tpl) {
+            self.modal = $(tpl());
+            self.modal.appendTo(self.form)
+                      .foundation('reveal');
+            reveal();
+        });
     };
 
     return Form;
