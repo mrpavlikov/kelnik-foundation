@@ -1,19 +1,19 @@
-// @include font-face('Bliss Pro', '/fonts/BlissPro.ttf', '/fonts/BlissPro.woff', '/fonts/BlissPro.eot', 'normal');
-@mixin font-face($name, $ttf: false, $woff: false, $eot: false, $weight: false, $style: false) {
-	$iefont: unquote("#{$eot}?#iefix");
-	$fonts: url($woff) format('woff'), url($ttf) format('truetype');
-	@font-face {
-		font-family: quote($name);
-		@if $eot {
-	 		src: url($eot);
-	 		$fonts: url($iefont) format('embedded-opentype'), $fonts;
-		}
-		src: $fonts;
-		@if $weight {
-			font-weight: $weight;
-		}
-		@if $style {
-	 		font-style: $style;
-		}
- 	}
+// @include font-face('Bliss Pro', '/fonts/BlissPro.ttf', '/fonts/BlissPro.woff', '/fonts/BlissPro.eot', bold, normal);
+@mixin font-face($name, $ttf:false, $woff:false, $eot:false, $weight:false, $style:false) {
+    $iefont: unquote("#{$eot}?#iefix");
+    $fonts: url($woff) format('woff'), url($ttf) format('truetype');
+    @font-face {
+        font-family: quote($name);
+        @if $eot {
+            src: url($eot);
+            $fonts: url($iefont) format('embedded-opentype'), $fonts;
+        }
+        src:$fonts;
+        @if $weight {
+            font-weight: $weight;
+        }
+        @if $style {
+            font-style: $style;
+        }
+    }
 }
