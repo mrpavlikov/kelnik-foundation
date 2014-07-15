@@ -1,4 +1,4 @@
-# Kelnik Foundation / Compass / RequireJS template
+# Kelnik Foundation Template
 
 Шаблон для начала работы с Foundation
 
