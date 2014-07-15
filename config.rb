@@ -1,9 +1,11 @@
+
+
 # Set this to the root of your project when deployed:
 http_path = "www"
 css_dir = "www/css"
-sass_dir = "sass"
+sass_dir = "dist/scss"
 #images_dir = "www/img"
-#javascripts_dir = "www/js"
+add_import_path "www/js/vendor/foundation/scss"
 
 # You can select your preferred output style here (can be overridden via the command line):
 output_style = :compressed
