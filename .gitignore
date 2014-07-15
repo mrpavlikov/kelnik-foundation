@@ -3,3 +3,4 @@
 /www/js/*
 /node_modules/*
 *.idea
+/.sass-cache
