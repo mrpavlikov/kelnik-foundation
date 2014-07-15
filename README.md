@@ -10,7 +10,7 @@
   * [Gulp](http://gulpjs.com/): `[sudo] npm install -g gulp`
   * [Bower](http://bower.io): `[sudo] npm install -g bower`
   * [Ruby](https://www.ruby-lang.org/ru/downloads/)
-  * [Compass](http://compass-style.org/): `[sudo] gem install compass`
+  * [Compass](http://compass-style.org/): `[sudo] gem install compass --pre`
 
 ## Quickstart
 
