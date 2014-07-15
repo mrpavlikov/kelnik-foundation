@@ -34,6 +34,7 @@ gulp.task('compass', function() {
         .pipe(compass({
             css        : 'www/css',
             sass       : 'dist/scss',
+            fonts_dir  : 'www/fonts',
             import_path: 'www/js/vendor/foundation/scss', // jshint ignore:line
             style      : 'compressed',
             comments   : false,
