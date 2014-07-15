@@ -40,7 +40,7 @@ gulp.task('compass', function() {
             relative   : true,
         }))
         .on('error', function() {})
-        .pipe(gulp.dest('./temp'));
+        .pipe(gulp.dest('./tmp'));
 });
 
 
