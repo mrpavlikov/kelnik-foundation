@@ -24,7 +24,6 @@ gulp
 ## Структура папок
 
   * `dist/scss/_settings.scss`: Конфигурационный файл Foundation
-  * `dist/scss/_settings_common.scss`: Конфигурационный файл наших наработок
   * `dist/scss/_common.scss`: Набор стандартных хаков
   * `dist/scss/app.scss`: Стили приложения
   * `dist/js`: Исходники javascript
