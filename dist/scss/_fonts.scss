@@ -1,7 +1,8 @@
 @include font-face(
     "OpenSans", //название шрифта
     font-files(
-        "OpenSans-Regular-webfont.ttf" //путь до файла в папке fonts
+        "OpenSans-Regular-webfont.ttf", //путь до файла в папке fonts
+        "OpenSans-Regular-webfont.woff"
     ),
     "OpenSans-Regular-webfont.eot" //IE fix
 );
