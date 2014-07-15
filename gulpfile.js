@@ -1,5 +1,4 @@
 var gulp         = require('gulp');
-var sass         = require('gulp-sass');
 var uglify       = require('gulp-uglify');
 var rename       = require('gulp-rename');
 var plumber      = require('gulp-plumber');
@@ -7,6 +6,7 @@ var handlebars   = require('gulp-handlebars');
 var defineModule = require('gulp-define-module');
 var jshint       = require('gulp-jshint');
 var stylish      = require('jshint-stylish');
+var compass      = require('gulp-compass');
 
 /**
  * Error function for plumber
@@ -24,23 +24,24 @@ var onError = function(err) {
 var paths = {
     scripts  : ['dist/js/*.js'],
     sass     : ['dist/scss/*.scss'],
-    templates: ['dist/templates/*.hbs']
+    templates: ['dist/templates/**/*.hbs']
 };
 
-
-// Compile Sass
-gulp.task('sass', function sassTask() {
+gulp.task('compass', function() {
     'use strict';
 
     return gulp.src(paths.sass)
-        .pipe(sass({
-            includePaths: ['scss', 'www/js/vendor/foundation/scss'],
-            outputStyle: 'compressed',
-            errLogToConsole: true
+        .pipe(compass({
+            css        : 'www/css',
+            sass       : 'dist/scss',
+            import_path: 'www/js/vendor/foundation/scss', // jshint ignore:line
+            style      : 'compressed',
+            comments   : false,
+            relative   : true,
         }))
-        .pipe(gulp.dest('www/css'));
+        .on('error', function() {})
+        .pipe(gulp.dest('./temp'));
 });
-
 
 
 // Uglify js
@@ -117,7 +118,7 @@ gulp.task('lint', function lintTask() {
 gulp.task('watch', function watch() {
     'use strict';
 
-    gulp.watch(paths.sass     , ['sass']);
+    gulp.watch(paths.sass     , ['compass']);
     gulp.watch(paths.scripts  , ['js']);
     gulp.watch(paths.templates, ['templates']);
 });
@@ -125,7 +126,7 @@ gulp.task('watch', function watch() {
 
 // Run
 gulp.task('default', [
-    'sass',
+    'compass',
     'vendor',
     'js',
     'templates',
