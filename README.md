@@ -1,6 +1,6 @@
-# Foundation libsass template
+# Kelnik Foundation / Compass / RequireJS template
 
-Шаблон для начала работы с Foundation/Sass/Gulp/Requirejs
+Шаблон для начала работы с Foundation
 
 ## Требования
 
@@ -9,6 +9,8 @@
   * [Node.js](http://nodejs.org)
   * [Gulp](http://gulpjs.com/): `[sudo] npm install -g gulp`
   * [Bower](http://bower.io): `[sudo] npm install -g bower`
+  * [Ruby](https://www.ruby-lang.org/ru/downloads/)
+  * [Compass](http://compass-style.org/): `[sudo] gem install compass`
 
 ## Quickstart
 
@@ -16,11 +18,8 @@
 git clone https://github.com/mrpavlikov/kelnik-foundation.git <project-name>
 cd <project-name>
 npm install
+gulp
 ```
-
-Перед работой запускаем watcher
-
-`gulp`
 
 ## Структура папок
 
