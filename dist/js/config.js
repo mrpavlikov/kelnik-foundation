@@ -2,19 +2,19 @@
 require.config({
     paths: {
         /* jQuery */
-        'jquery'       : 'vendor/jquery/dist/jquery.min',
+        'jquery'       : 'jquery/dist/jquery.min',
 
         /* Foundation */
-        'foundation'   : 'vendor/foundation/js/foundation.min',
+        'foundation'   : 'foundation/js/foundation.min',
 
         /* Vendors */
-        'jquery.cookie': 'vendor/jquery.cookie',
-        'fastclick'    : 'vendor/fastclick/lib/fastclick',
-        'modernizr'    : 'vendor/modernizr/modernizr',
-        'placeholder'  : 'vendor/jquery-placeholder/jquery.placeholder',
-        'fotorama'     : 'vendor/fotorama/fotorama',
+        'jquery.cookie': 'jquery.cookie',
+        'fastclick'    : 'fastclick/lib/fastclick',
+        'modernizr'    : 'modernizr/modernizr',
+        'placeholder'  : 'jquery-placeholder/jquery.placeholder',
+        'fotorama'     : 'fotorama/fotorama',
         'ymaps'        : '//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU',
-        'handlebars'   : 'vendor/handlebars/handlebars.runtime.min'
+        'handlebars'   : 'handlebars/handlebars.runtime.min'
     },
     shim: {
         /* Foundation all in one */

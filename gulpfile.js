@@ -7,6 +7,8 @@ var defineModule = require('gulp-define-module');
 var jshint       = require('gulp-jshint');
 var stylish      = require('jshint-stylish');
 var compass      = require('gulp-compass');
+var scsslint     = require('gulp-scss-lint');
+var cache        = require('gulp-cached');
 
 /**
  * Error function for plumber
@@ -35,7 +37,7 @@ gulp.task('compass', function() {
             css        : 'www/css',
             sass       : 'dist/scss',
             font       : 'www/fonts',
-            import_path: 'www/js/vendor/foundation/scss', // jshint ignore:line
+            import_path: 'www/js/foundation/scss', // jshint ignore:line
             style      : 'compressed',
             comments   : false,
             relative   : true,
@@ -67,7 +69,7 @@ gulp.task('js', ['lint'], function jsTask() {
 gulp.task('vendor', function vendorTask() {
     'use strict';
 
-    return gulp.src(['www/js/vendor/requirejs/require.js'], {
+    return gulp.src(['www/js/requirejs/require.js'], {
         base: process.cwd() // jshint ignore:line
     })
         .pipe(plumber({

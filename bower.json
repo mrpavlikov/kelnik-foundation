@@ -1,10 +1,16 @@
 {
-  "name": "foundation-libsass-template",
+  "name": "kelnik.foundation.template",
+  "authors": [
+    "Vladimir Pavlikov <theitzamna@gmail.com>"
+  ],
+  "moduleType": [
+    "amd"
+  ],
+  "private": true,
   "dependencies": {
     "foundation": "zurb/bower-foundation",
     "fotorama": "latest",
     "requirejs": "latest",
     "handlebars": "latest"
-  },
-  "devDependencies": {}
+  }
 }
