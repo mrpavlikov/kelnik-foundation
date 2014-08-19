@@ -57,6 +57,8 @@ define(['jquery', 'foundation'], function formModule($) {
             data    : self.form.serialize(),
             type    : self.form.attr('method') || 'post',
             dataType: 'json'
+        }).always(function always() {
+            self.submitBtn.prop('disabled', false);
         }).done(function onDone(data) {
             var method = data.ret ? 'handleSuccess' : 'handleError';
             self[method](data);
@@ -64,8 +66,6 @@ define(['jquery', 'foundation'], function formModule($) {
             self.handleError({
                 message: self.opts.errorText
             });
-        }).always(function always() {
-            self.submitBtn.prop('disabled', false);
         });
     };
 
