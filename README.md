@@ -16,7 +16,7 @@
 ## Quickstart
 
 ```bash
-git clone https://github.com/mrpavlikov/kelnik-foundation.git <project-name>
+git clone git@github.com:mrpavlikov/kelnik-foundation.git <project-name>
 cd <project-name>
 npm install && gulp
 ```
