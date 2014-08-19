@@ -29,7 +29,17 @@ var paths = {
     templates: ['dist/templates/**/*.hbs']
 };
 
-gulp.task('compass', function() {
+gulp.task('scss-lint', function sassLintTask() {
+    'use strict';
+
+    return gulp.src(paths.sass)
+        .pipe(cache('scss-lint'))
+        .pipe(scsslint({
+            'config': '.scss-lint.yml',
+        }));
+});
+
+gulp.task('compass', ['scss-lint'], function() {
     'use strict';
 
     return gulp.src(paths.sass)
@@ -48,12 +58,13 @@ gulp.task('compass', function() {
 
 
 // Uglify js
-gulp.task('js', ['lint'], function jsTask() {
+gulp.task('js', ['js-lint'], function jsTask() {
     'use strict';
 
     return gulp.src(paths.scripts, {
         base: 'dist/js'
     })
+        .pipe(cache('js'))
         .pipe(plumber({
             errorHandler: onError
         }))
@@ -95,6 +106,7 @@ gulp.task('templates', function templatesTask() {
         .pipe(plumber({
             errorHandler: onError
         }))
+        .pipe(cache('templates'))
         .pipe(handlebars())
         .pipe(plumber.stop())
         .pipe(defineModule('amd'))
@@ -105,13 +117,14 @@ gulp.task('templates', function templatesTask() {
 });
 
 // Jshint linting
-gulp.task('lint', function lintTask() {
+gulp.task('js-lint', function lintTask() {
     'use strict';
 
     return gulp.src(paths.scripts)
         .pipe(plumber({
             errorHandler: onError
         }))
+        .pipe(cache('js-lint'))
         .pipe(jshint())
         .pipe(jshint.reporter(stylish))
         .pipe(plumber.stop());
