@@ -8,7 +8,6 @@ var jshint       = require('gulp-jshint');
 var stylish      = require('jshint-stylish');
 var compass      = require('gulp-compass');
 var scsslint     = require('gulp-scss-lint');
-var cache        = require('gulp-cached');
 
 /**
  * Error function for plumber
@@ -33,7 +32,6 @@ gulp.task('scss-lint', function sassLintTask() {
     'use strict';
 
     return gulp.src(paths.sass)
-        .pipe(cache('scss-lint'))
         .pipe(scsslint({
             'config': '.scss-lint.yml',
         }));
@@ -64,7 +62,6 @@ gulp.task('js', ['js-lint'], function jsTask() {
     return gulp.src(paths.scripts, {
         base: 'dist/js'
     })
-        .pipe(cache('js'))
         .pipe(plumber({
             errorHandler: onError
         }))
@@ -106,7 +103,6 @@ gulp.task('templates', function templatesTask() {
         .pipe(plumber({
             errorHandler: onError
         }))
-        .pipe(cache('templates'))
         .pipe(handlebars())
         .pipe(plumber.stop())
         .pipe(defineModule('amd'))
@@ -124,7 +120,6 @@ gulp.task('js-lint', function lintTask() {
         .pipe(plumber({
             errorHandler: onError
         }))
-        .pipe(cache('js-lint'))
         .pipe(jshint())
         .pipe(jshint.reporter(stylish))
         .pipe(plumber.stop());
