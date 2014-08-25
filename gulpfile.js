@@ -8,6 +8,7 @@ var jshint       = require('gulp-jshint');
 var stylish      = require('jshint-stylish');
 var compass      = require('gulp-compass');
 var scsslint     = require('gulp-scss-lint');
+var jscs         = require('gulp-jscs');
 
 /**
  * Error function for plumber
@@ -54,7 +55,6 @@ gulp.task('compass', ['scss-lint'], function() {
         .pipe(gulp.dest('./tmp'));
 });
 
-
 // Uglify js
 gulp.task('js', ['js-lint'], function jsTask() {
     'use strict';
@@ -71,7 +71,6 @@ gulp.task('js', ['js-lint'], function jsTask() {
         .pipe(plumber.stop())
         .pipe(gulp.dest('www/js'));
 });
-
 
 // Uglify vendor scripts
 gulp.task('vendor', function vendorTask() {
@@ -94,7 +93,6 @@ gulp.task('vendor', function vendorTask() {
 
 });
 
-
 // Compile templates
 gulp.task('templates', function templatesTask() {
     'use strict';
@@ -113,7 +111,7 @@ gulp.task('templates', function templatesTask() {
 });
 
 // Jshint linting
-gulp.task('js-lint', function lintTask() {
+gulp.task('js-lint', ['jscs'], function lintTask() {
     'use strict';
 
     return gulp.src(paths.scripts)
@@ -125,6 +123,12 @@ gulp.task('js-lint', function lintTask() {
         .pipe(plumber.stop());
 });
 
+gulp.task('jscs', function jscsTask() {
+    'use strict';
+    return gulp.src(paths.scripts)
+        .pipe(jscs());
+});
+
 // Watch
 gulp.task('watch', function watch() {
     'use strict';
@@ -134,7 +138,6 @@ gulp.task('watch', function watch() {
     gulp.watch(paths.templates, ['templates']);
 });
 
-
 // Run
 gulp.task('default', [
     'compass',
@@ -143,4 +146,3 @@ gulp.task('default', [
     'templates',
     'watch'
 ]);
-

@@ -41,6 +41,7 @@ define(['jquery', 'foundation'], function application($) {
 
             forms.each(init);
         });
+
     })($('form'));
 
     // Подключение плагина Fotorama
