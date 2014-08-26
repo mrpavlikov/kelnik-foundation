@@ -1,49 +1,44 @@
 /* jshint ignore:start */
 require.config({
-    paths: {
-        /* jQuery */
-        'jquery'       : 'jquery/dist/jquery.min',
+    paths : {
+        jquery          : 'jquery/dist/jquery.min',
 
-        /* Foundation */
-        'foundation'   : 'foundation/js/foundation.min',
+        foundation      : 'foundation/js/foundation.min',
 
-        /* Vendors */
-        'jquery.cookie': 'jquery.cookie',
-        'fastclick'    : 'fastclick/lib/fastclick',
-        'modernizr'    : 'modernizr/modernizr',
-        'placeholder'  : 'jquery-placeholder/jquery.placeholder',
-        'fotorama'     : 'fotorama/fotorama',
-        'ymaps'        : '//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU',
-        'handlebars'   : 'handlebars/handlebars.runtime.min'
+        'jquery.cookie' : 'jquery.cookie',
+        fastclick       : 'fastclick/lib/fastclick',
+        modernizr       : 'modernizr/modernizr',
+        placeholder     : 'jquery-placeholder/jquery.placeholder',
+        fotorama        : 'fotorama/fotorama',
+        ymaps           : '//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU',
+        handlebars      : 'handlebars/handlebars.runtime.min'
     },
-    shim: {
-        /* Foundation all in one */
-        'foundation': {
-            deps   : ['jquery', 'modernizr'],
-            exports: 'Foundation'
+    shim : {
+        foundation : {
+            deps    : ['jquery', 'modernizr'],
+            exports : 'Foundation'
         },
 
-        /* Vendor Scripts */
-        'jquery.cookie': {
-            deps   :['jquery']
+        'jquery.cookie' : {
+            deps   : ['jquery']
         },
-        'fastclick': {
+        fastclick : {
             exports: 'FastClick'
         },
-        'modernizr': {
+        modernizr: {
             exports: 'Modernizr'
         },
-        'placeholder': {
+        placeholder: {
             exports: 'Placeholders'
         },
-        'fotorama': {
+        fotorama: {
             deps   : ['jquery'],
             exports: 'jQuery.fn.fotorama'
         },
-        'ymaps': {
+        ymaps: {
             exports: 'ymaps'
         },
-        'handlebars': {
+        handlebars: {
             exports: 'Handlebars'
         }
     },

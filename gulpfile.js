@@ -24,9 +24,9 @@ var onError = function(err) {
 };
 
 var paths = {
-    scripts  : ['dist/js/*.js'],
-    sass     : ['dist/scss/*.scss'],
-    templates: ['dist/templates/**/*.hbs']
+    scripts   : ['dist/js/*.js'],
+    sass      : ['dist/scss/*.scss'],
+    templates : ['dist/templates/**/*.hbs']
 };
 
 gulp.task('scss-lint', function sassLintTask() {
@@ -34,7 +34,7 @@ gulp.task('scss-lint', function sassLintTask() {
 
     return gulp.src(paths.sass)
         .pipe(scsslint({
-            'config': '.scss-lint.yml',
+            config: '.scss-lint.yml'
         }));
 });
 
@@ -49,7 +49,7 @@ gulp.task('compass', ['scss-lint'], function() {
             import_path: 'www/js/foundation/scss', // jshint ignore:line
             style      : 'compressed',
             comments   : false,
-            relative   : true,
+            relative   : true
         }))
         .on('error', function() {})
         .pipe(gulp.dest('./tmp'));
@@ -90,7 +90,6 @@ gulp.task('vendor', function vendorTask() {
         }))
         .pipe(plumber.stop())
         .pipe(gulp.dest('.'));
-
 });
 
 // Compile templates

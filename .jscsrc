@@ -69,15 +69,13 @@
     "disallowTrailingComma": true,
     "disallowPaddingNewlinesInBlocks": true,
 
-    "requireAlignedObjectValues": "skipWithLineBreak",
     "requireBlocksOnNewline": true,
     "requireCommaBeforeLineBreak": true,
     "requireDotNotation": true,
     "disallowKeywordsOnNewLine": [ "else" ],
-    "requireSpaceAfterObjectKeys": true,
     "validateLineBreaks": "LF",
 
     "excludeFiles": [
-        "dist/js/config.js"
+        "./dist/js/config.js"
     ]
 }
