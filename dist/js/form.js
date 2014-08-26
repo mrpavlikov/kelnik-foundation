@@ -11,12 +11,12 @@ define(['jquery', 'foundation'], function formModule($) {
         this.onError   = null;
 
         this.opts = {
-            successTpl : 'form_success',
-            errorTpl   : 'form_error',
-            popupTpl   : 'form_popup',
-            errorText  : 'Внутренняя ошибка, пожалуйста, ' +
-                         'повторите запрос позднее',
-            successText: 'Форма успешно отправлена'
+            successTpl  : 'form_success',
+            errorTpl    : 'form_error',
+            popupTpl    : 'form_popup',
+            errorText   : 'Внутренняя ошибка, пожалуйста, ' +
+                          'повторите запрос позднее',
+            successText : 'Форма успешно отправлена'
         };
 
         $.extend(this.opts, opts || {});
@@ -53,10 +53,10 @@ define(['jquery', 'foundation'], function formModule($) {
         $(':focus').blur();
 
         $.ajax({
-            url     : self.form.attr('action') || location,
-            data    : self.form.serialize(),
-            type    : self.form.attr('method') || 'post',
-            dataType: 'json'
+            url      : self.form.attr('action') || location,
+            data     : self.form.serialize(),
+            type     : self.form.attr('method') || 'post',
+            dataType : 'json'
         }).always(function always() {
             self.submitBtn.prop('disabled', false);
         }).done(function onDone(data) {
@@ -64,7 +64,7 @@ define(['jquery', 'foundation'], function formModule($) {
             self[method](data);
         }).fail(function onFail() {
             self.handleError({
-                message: self.opts.errorText
+                message : self.opts.errorText
             });
         });
     };
@@ -92,8 +92,8 @@ define(['jquery', 'foundation'], function formModule($) {
             'templates/' + self.opts.errorTpl
         ], function onErrorTplLoaded(tpl) {
             var html = tpl({
-                header : 'Ошибка!',
-                message: data.message || self.opts.errorText
+                header  : 'Ошибка!',
+                message : data.message || self.opts.errorText
             });
             self.popup(html);
         });
@@ -122,8 +122,8 @@ define(['jquery', 'foundation'], function formModule($) {
             'templates/' + self.opts.successTpl
         ], function onSuccessTplLoaded(tpl) {
             var html = tpl({
-                header : 'Спасибо!',
-                message: data.message || self.opts.successText
+                header  : 'Спасибо!',
+                message : data.message || self.opts.successText
             });
             self.form.replaceWith(html);
         });

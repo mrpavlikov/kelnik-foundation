@@ -16,7 +16,6 @@
     "disallowMixedSpacesAndTabs": true,
     "disallowTrailingWhitespace": true,
 
-
     "requireSpaceAfterKeywords": [
       "if",
       "else",
@@ -43,9 +42,6 @@
     "requireSpacesInFunctionExpression": {
         "beforeOpeningCurlyBrace": true
     },
-    "disallowSpacesInAnonymousFunctionExpression": {
-        "beforeOpeningRoundBrace": true
-    },
     "disallowSpacesInsideObjectBrackets": "all",
     "disallowSpacesInsideArrayBrackets": "all",
     "disallowSpacesInsideParentheses": true,
@@ -56,5 +52,32 @@
         "requireParamTypes": true
     },
 
-    "disallowMultipleLineBreaks": true
+    "disallowMultipleLineBreaks": true,
+    "disallowMultipleVarDecl": true,
+    "disallowQuotedKeysInObjects": true,
+    "disallowSpaceAfterPrefixUnaryOperators": ["++", "--", "+", "-", "~", "!"],
+    "disallowSpaceBeforePostfixUnaryOperators": ["++", "--"],
+    "disallowSpacesInFunctionExpression": {
+      "beforeOpeningRoundBrace": true
+    },
+    "disallowSpacesInNamedFunctionExpression": {
+        "beforeOpeningRoundBrace": true
+    },
+    "disallowSpacesInFunctionDeclaration": {
+        "beforeOpeningRoundBrace": true
+    },
+    "disallowTrailingComma": true,
+    "disallowPaddingNewlinesInBlocks": true,
+
+    "requireAlignedObjectValues": "skipWithLineBreak",
+    "requireBlocksOnNewline": true,
+    "requireCommaBeforeLineBreak": true,
+    "requireDotNotation": true,
+    "disallowKeywordsOnNewLine": [ "else" ],
+    "requireSpaceAfterObjectKeys": true,
+    "validateLineBreaks": "LF",
+
+    "excludeFiles": [
+        "dist/js/config.js"
+    ]
 }

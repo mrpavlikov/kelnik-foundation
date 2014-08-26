@@ -4,21 +4,24 @@ define(['jquery', 'foundation'], function application($) {
     // Инициализация фреймворка Foundation
     /* jshint ignore:start */
     $(document).foundation({
-        abide: {
-            patterns: {
-                phone    : /^(\+[ ]?)?[0-9]{1,4}[ ]?([0-9]{1,5}|[(][0-9]{1,5}[)])[ ]?[0-9]([\- ]?[0-9]){2,6}[\- ]?[0-9]$/,
-                password : /^[^\s]{6,}$/,
-                name     : /^[а-я](\-?[а-я])*\-?[а-я]$/i,
-                full_name: /^([а-я](\-?[а-я])*\-?[а-я][ ]){2}[а-я](\-?[а-я])*\-?[а-я]$/i
+        abide : {
+            patterns : {
+                phone     : /^(\+[ ]?)?[0-9]{1,4}[ ]?([0-9]{1,5}|[(][0-9]{1,5}[)])[ ]?[0-9]([\- ]?[0-9]){2,6}[\- ]?[0-9]$/,
+                password  : /^[^\s]{6,}$/,
+                name      : /^[а-я](\-?[а-я])*\-?[а-я]$/i,
+                full_name : /^([а-я](\-?[а-я])*\-?[а-я][ ]){2}[а-я](\-?[а-я])*\-?[а-я]$/i
             },
-            live_validate: false
+
+            live_validate : false
         }
     });
     /* jshint ignore:end */
 
     // Инициализация форм
     (function initForms(forms) {
-        if (!forms.length) { return; }
+        if (!forms.length) {
+            return;
+        }
 
         require(['form'], function onFormLoaded(Form) {
             var init = function() {
@@ -41,12 +44,13 @@ define(['jquery', 'foundation'], function application($) {
 
             forms.each(init);
         });
-
     })($('form'));
 
     // Подключение плагина Fotorama
     (function initFotorama(list) {
-        if (!list.length) { return; }
+        if (!list.length) {
+            return;
+        }
 
         var fotorama = function() {
             $(this).fotorama({});
@@ -55,19 +59,20 @@ define(['jquery', 'foundation'], function application($) {
         require(['fotorama'], function onFotoramaLoaded() {
             list.each(fotorama);
         });
-
     })($('.fotorama'));
 
     // Подключение Яндекс карт
     (function initYmaps(cont) {
-        if (!cont) { return; }
+        if (!cont) {
+            return;
+        }
 
         require(['ymaps'], function onMapsLoaded(ymaps) {
             var map;
             var initMap = function() {
                 map = new ymaps.Map(cont.id, {
-                    center: [60.153151, 30.286574],
-                    zoom  : 13
+                    center : [60.153151, 30.286574],
+                    zoom   : 13
                 });
             };
             ymaps.ready(initMap);
@@ -77,7 +82,7 @@ define(['jquery', 'foundation'], function application($) {
     // Пример работы с шаблонами
     require(['templates/hello', 'helpers'], function onTplLoaded(template) {
         console.log(template({
-            name: 'Pavlikov'
+            name : 'Pavlikov'
         }));
     });
 
