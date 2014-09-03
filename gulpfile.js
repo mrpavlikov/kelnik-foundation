@@ -51,8 +51,9 @@ gulp.task('compass', ['scss-lint'], function() {
             comments   : false,
             relative   : true
         }))
-        .on('error', function() {})
-        .pipe(gulp.dest('./tmp'));
+        .on('error', function() {
+            this.emit('end');
+        });
 });
 
 // Uglify js
