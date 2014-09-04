@@ -20,7 +20,7 @@
 ```bash
 git clone git@github.com:mrpavlikov/kelnik-foundation.git <project-name>
 cd <project-name>
-npm install && gulp
+npm install && gulp watch
 ```
 
 ## Структура папок

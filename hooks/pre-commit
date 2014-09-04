@@ -1,0 +1,11 @@
+#!/bin/bash
+
+die() {
+    echo -en "\n\033[37;1;41m Fix errors above before commiting \033[0m\n\n" 1>&2 ;
+    exit 1;
+}
+
+./node_modules/.bin/gulp lint
+if [ "$?" -ne 0 ]; then
+    die;
+fi

@@ -23,8 +23,6 @@ define(['jquery', 'foundation'], function application($) {
             return;
         }
 
-        pisa
-
         require(['form'], function onFormLoaded(Form) {
             var init = function() {
                 var form = new Form($(this));

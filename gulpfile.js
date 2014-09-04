@@ -1,3 +1,14 @@
+/**
+ * Usage
+ *
+ * Build project:
+ * $ gulp
+ * or
+ * $ gulp build
+ *
+ * Watch for sass changes
+ * $ gulp watch
+ */
 var gulp         = require('gulp');
 var uglify       = require('gulp-uglify');
 var rename       = require('gulp-rename');
@@ -9,6 +20,8 @@ var stylish      = require('jshint-stylish');
 var compass      = require('gulp-compass');
 var scsslint     = require('gulp-scss-lint');
 var jscs         = require('gulp-jscs');
+var map          = require('map-stream');
+var chmod        = require('gulp-chmod');
 
 /**
  * Error function for plumber
@@ -23,22 +36,30 @@ var onError = function(err) {
     );
 };
 
+/**
+ * Configuring paths
+ * @type {Object}
+ */
 var paths = {
     scripts   : ['dist/js/*.js'],
     sass      : ['dist/scss/*.scss'],
     templates : ['dist/templates/**/*.hbs']
 };
 
-gulp.task('scss-lint', function sassLintTask() {
-    'use strict';
+/**
+ * Build tasks
+ */
 
-    return gulp.src(paths.sass)
-        .pipe(scsslint({
-            config: '.scss-lint.yml'
-        }));
-});
+// Main build task
+gulp.task('build', [
+    'hooks',
+    'compass',
+    'vendor',
+    'js',
+    'templates'
+]);
 
-gulp.task('compass', ['scss-lint'], function() {
+gulp.task('compass', function() {
     'use strict';
 
     return gulp.src(paths.sass)
@@ -56,8 +77,7 @@ gulp.task('compass', ['scss-lint'], function() {
         });
 });
 
-// Uglify js
-gulp.task('js', ['js-lint'], function jsTask() {
+gulp.task('js', function jsTask() {
     'use strict';
 
     return gulp.src(paths.scripts, {
@@ -73,7 +93,6 @@ gulp.task('js', ['js-lint'], function jsTask() {
         .pipe(gulp.dest('www/js'));
 });
 
-// Uglify vendor scripts
 gulp.task('vendor', function vendorTask() {
     'use strict';
 
@@ -93,7 +112,6 @@ gulp.task('vendor', function vendorTask() {
         .pipe(gulp.dest('.'));
 });
 
-// Compile templates
 gulp.task('templates', function templatesTask() {
     'use strict';
 
@@ -110,17 +128,39 @@ gulp.task('templates', function templatesTask() {
         .pipe(gulp.dest('www/js/templates/'));
 });
 
-// Jshint linting
-gulp.task('js-lint', ['jscs'], function lintTask() {
+/**
+ * Lint tasks
+ */
+
+// Main lint task
+gulp.task('lint', ['jscs', 'jshint', 'scss-lint']);
+
+gulp.task('scss-lint', function sassLintTask() {
     'use strict';
 
-    return gulp.src(paths.scripts)
-        .pipe(plumber({
-            errorHandler: onError
+    return gulp.src(paths.sass)
+        .pipe(scsslint({
+            config: '.scss-lint.yml'
         }))
+        .pipe(scsslint.failReporter());
+});
+
+gulp.task('jshint', function lintTask() {
+    'use strict';
+
+    var errorReporter = function() {
+        return map(function(file, cb) {
+            if (!file.jshint.success) {
+                process.exit(1); // jshint ignore:line
+            }
+            cb(null, file);
+        });
+    };
+
+    return gulp.src(paths.scripts)
         .pipe(jshint())
         .pipe(jshint.reporter(stylish))
-        .pipe(plumber.stop());
+        .pipe(errorReporter());
 });
 
 gulp.task('jscs', function jscsTask() {
@@ -129,8 +169,24 @@ gulp.task('jscs', function jscsTask() {
         .pipe(jscs());
 });
 
-// Watch
-gulp.task('watch', function watch() {
+/**
+ * Hook tasks
+ */
+
+gulp.task('hooks', function() {
+    'use strict';
+
+    gulp.src('hooks/pre-commit')
+        .pipe(chmod({
+            execute: true
+        }))
+        .pipe(gulp.dest('.git/hooks/'));
+});
+
+/**
+ * Watch task
+ */
+gulp.task('watch', ['build'], function watch() {
     'use strict';
 
     gulp.watch(paths.sass     , ['compass']);
@@ -139,10 +195,4 @@ gulp.task('watch', function watch() {
 });
 
 // Run
-gulp.task('default', [
-    'compass',
-    'vendor',
-    'js',
-    'templates',
-    'watch'
-]);
+gulp.task('default', ['build']);
