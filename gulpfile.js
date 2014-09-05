@@ -64,11 +64,7 @@ gulp.task('compass', function() {
         .pipe(compass({
             css        : 'www/css',
             sass       : 'dist/scss',
-            font       : 'www/fonts',
-            import_path: 'www/js/foundation/scss', // jshint ignore:line
-            style      : 'compressed',
-            comments   : false,
-            relative   : true
+            config_file: './config.rb' // jshint ignore:line
         }))
         .on('error', notify.onError({
             message : 'Failed to compile',
