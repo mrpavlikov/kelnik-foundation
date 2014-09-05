@@ -10,7 +10,6 @@
     "url": "https://github.com/mrpavlikov/kelnik-foundation"
   },
   "devDependencies": {
-    "node-sass": "^0.9.3",
     "gulp": "^3.8.7",
     "gulp-uglify": "^1.0.1",
     "gulp-rename": "^1.2.0",
