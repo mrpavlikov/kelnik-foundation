@@ -176,7 +176,7 @@ gulp.task('jscs', function jscsTask() {
 gulp.task('hooks', function() {
     'use strict';
 
-    gulp.src('hooks/pre-commit')
+    gulp.src('hooks/*')
         .pipe(chmod({
             execute: true
         }))
