@@ -1,6 +1,7 @@
 #!/bin/bash
 
 die() {
+    ./node_modules/.bin/gulp pre-commit-notify &>/dev/null
     echo -en "\n\033[37;1;41m Fix errors above before commiting \033[0m\n\n" 1>&2 ;
     exit 1;
 }
