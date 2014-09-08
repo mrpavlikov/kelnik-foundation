@@ -1,3 +1,4 @@
+var projectName = 'kelnik-foundation';
 /**
  * Usage
  *
@@ -22,19 +23,16 @@ var scsslint     = require('gulp-scss-lint');
 var jscs         = require('gulp-jscs');
 var map          = require('map-stream');
 var chmod        = require('gulp-chmod');
+var notify       = require('gulp-notify');
+var tap          = require('gulp-tap');
+var Notification = require('node-notifier');
+var notifier      = new Notification();
 
 /**
  * Error function for plumber
- * @param  {Object} err
+ * @param  {Object} error
  */
-var onError = function(err) {
-    'use strict';
-
-    console.error(
-        'Error in plugin ' + err.plugin + '\n' +
-        'Message: ' + err.message
-    );
-};
+var onError = notify.onError('Ошибка в <%= error.plugin %>');
 
 /**
  * Configuring paths
@@ -55,7 +53,7 @@ gulp.task('build', [
     'hooks',
     'compass',
     'vendor',
-    'js',
+    'js-uglify',
     'templates'
 ]);
 
@@ -66,25 +64,35 @@ gulp.task('compass', function() {
         .pipe(compass({
             css        : 'www/css',
             sass       : 'dist/scss',
-            font       : 'www/fonts',
-            import_path: 'www/js/foundation/scss', // jshint ignore:line
-            style      : 'compressed',
-            comments   : false,
-            relative   : true
+            config_file: './config.rb' // jshint ignore:line
+        }))
+        .on('error', notify.onError({
+            message : 'Failed to compile',
+            title   : projectName + ': compass'
         }))
         .on('error', function() {
             this.emit('end');
         });
 });
 
-gulp.task('js', function jsTask() {
+gulp.task('js-uglify', function jsTask() {
     'use strict';
+
+    var errorTpl = [
+        'Line: <%= error.lineNumber %>: <%= error.message %>',
+        '<%= error.fileName %>'
+    ].join('\n') ;
+
+    var titleTpl = projectName + ': <%= error.plugin %>';
 
     return gulp.src(paths.scripts, {
         base: 'dist/js'
     })
         .pipe(plumber({
-            errorHandler: onError
+            errorHandler: notify.onError({
+                message : errorTpl,
+                title   : titleTpl
+            })
         }))
         .pipe(uglify({
             outSourceMap: false
@@ -115,9 +123,21 @@ gulp.task('vendor', function vendorTask() {
 gulp.task('templates', function templatesTask() {
     'use strict';
 
+    var fileName;
+
+    var errorTpl = '<%= error.message %>';
+
     return gulp.src(paths.templates)
+        .pipe(tap(function(file) {
+            fileName = file.relative;
+        }))
         .pipe(plumber({
-            errorHandler: onError
+            errorHandler: notify.onError({
+                message : function() {
+                    return errorTpl + '\n\n' + fileName;
+                },
+                title   : projectName + ': handlebars'
+            })
         }))
         .pipe(handlebars())
         .pipe(plumber.stop())
@@ -176,11 +196,22 @@ gulp.task('jscs', function jscsTask() {
 gulp.task('hooks', function() {
     'use strict';
 
-    gulp.src('hooks/pre-commit')
+    gulp.src('hooks/*')
         .pipe(chmod({
             execute: true
         }))
         .pipe(gulp.dest('.git/hooks/'));
+});
+
+/**
+ * Notify tasks
+ */
+gulp.task('pre-commit-notify', function() {
+    'use strict';
+    notifier.notify({
+        message: 'Commit failed. Fix errors first.',
+        title: projectName
+    });
 });
 
 /**
@@ -190,7 +221,7 @@ gulp.task('watch', ['build'], function watch() {
     'use strict';
 
     gulp.watch(paths.sass     , ['compass']);
-    gulp.watch(paths.scripts  , ['js']);
+    gulp.watch(paths.scripts  , ['js-uglify']);
     gulp.watch(paths.templates, ['templates']);
 });
 
