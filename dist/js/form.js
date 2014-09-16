@@ -11,9 +11,9 @@ define(['jquery', 'foundation'], function formModule($) {
         this.onError   = null;
 
         this.opts = {
-            successTpl  : 'form_success',
-            errorTpl    : 'form_error',
-            popupTpl    : 'form_popup',
+            successTpl  : 'form/success',
+            errorTpl    : 'form/error',
+            popupTpl    : 'form/popup',
             errorText   : 'Внутренняя ошибка, пожалуйста, ' +
                           'повторите запрос позднее',
             successText : 'Форма успешно отправлена'
