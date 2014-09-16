@@ -15,4 +15,4 @@ check_run package.json "npm install && npm prune"
 check_run bower.json "bower install && bower prune"
 
 # `compass compile` to compil all the scss files when they get changed
-check_run .scss "compass compile"
+check_run .scss "compass clean && compass compile"
