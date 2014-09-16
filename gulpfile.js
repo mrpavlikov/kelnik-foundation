@@ -39,8 +39,8 @@ var onError = notify.onError('Ошибка в <%= error.plugin %>');
  * @type {Object}
  */
 var paths = {
-    scripts   : ['dist/js/*.js'],
-    sass      : ['dist/scss/*.scss'],
+    scripts   : ['dist/js/**/*.js'],
+    sass      : ['dist/scss/**/*.scss'],
     templates : ['dist/templates/**/*.hbs']
 };
 
