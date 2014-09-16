@@ -8,9 +8,9 @@
   ],
   "private": true,
   "dependencies": {
-    "foundation": "zurb/bower-foundation",
     "fotorama": "latest",
     "requirejs": "latest",
-    "handlebars": "latest"
+    "handlebars": "~1.3.0",
+    "foundation": "zurb/bower-foundation#~5.4.4"
   }
 }
