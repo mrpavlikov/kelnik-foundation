@@ -10,7 +10,7 @@
   "dependencies": {
     "fotorama": "latest",
     "requirejs": "latest",
-    "handlebars": "~1.3.0",
+    "handlebars": "~2.0.0",
     "foundation": "zurb/bower-foundation#~5.4.4"
   }
 }
