@@ -7,4 +7,4 @@ javascripts_dir = 'www/js'
 relative_assets = true
 line_comments = false
 add_import_path 'www/js/foundation/scss'
-font_dir = 'www/fonts'
+fonts_dir = 'www/fonts'
