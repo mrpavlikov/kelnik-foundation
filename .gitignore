@@ -1,6 +1,6 @@
 *.DS_Store
 /www/styles/*
-/www/js/*
+/www/scripts/*
 /node_modules/*
 *.idea
 /.sass-cache

@@ -40,9 +40,9 @@ var onError = notify.onError('Ошибка в <%= error.plugin %>');
  * @type {Object}
  */
 var paths = {
-    scripts   : ['dist/js/**/*.js'],
+    scripts   : ['dist/scripts/**/*.js'],
     sass      : ['dist/styles/**/*.scss'],
-    templates : ['dist/js/tpl/**/*.hbs']
+    templates : ['dist/scripts/tpl/**/*.hbs']
 };
 
 /**
@@ -63,7 +63,7 @@ gulp.task('compass', function() {
 
     return gulp.src(paths.sass)
         .pipe(compass({
-            css         : 'www/css',
+            css         : 'www/styles',
             sass        : 'dist/styles',
             config_file : './config.rb' // jshint ignore:line
         }))
@@ -99,13 +99,13 @@ gulp.task('js-uglify', function jsTask() {
             outSourceMap: false
         }))
         .pipe(plumber.stop())
-        .pipe(gulp.dest('www/js'));
+        .pipe(gulp.dest('www/scripts'));
 });
 
 gulp.task('vendor', function vendorTask() {
     'use strict';
 
-    return gulp.src(['www/js/lib/requirejs/require.js'], {
+    return gulp.src(['www/scripts/lib/requirejs/require.js'], {
         base: process.cwd() // jshint ignore:line
     })
         .pipe(plumber({
@@ -145,7 +145,7 @@ gulp.task('templates', function templatesTask() {
         .pipe(uglify({
             outSourceMap : false
         }))
-        .pipe(gulp.dest('www/js/tpl/'));
+        .pipe(gulp.dest('www/scripts/tpl/'));
 });
 
 /**
