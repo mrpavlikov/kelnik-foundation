@@ -1,7 +1,7 @@
 define('app', [
     'jquery',
     'foundation'
-], function application(
+], function(
     $
 ) {
     'use strict';
@@ -20,24 +20,6 @@ define('app', [
             /* jshint ignore:end */
         }
     });
-
-    // Подключение Яндекс карт
-    (function initYmaps(cont) {
-        if (!cont) {
-            return;
-        }
-
-        require(['ymaps'], function onMapsLoaded(ymaps) {
-            var map;
-            var initMap = function() {
-                map = new ymaps.Map(cont.id, {
-                    center : [60.153151, 30.286574],
-                    zoom   : 13
-                });
-            };
-            ymaps.ready(initMap);
-        });
-    })(document.querySelector('#map'));
 
     return {};
 });
