@@ -1,10 +1,13 @@
 /* jshint ignore:start */
 require.config({
+    baseUrl: 'js/lib',
+
     paths : {
+        app             : '../app',
+        tpl             : '../tpl',
+
         jquery          : 'jquery/dist/jquery.min',
-
         foundation      : 'foundation/js/foundation.min',
-
         'jquery.cookie' : 'jquery.cookie',
         fastclick       : 'fastclick/lib/fastclick',
         modernizr       : 'modernizr/modernizr',

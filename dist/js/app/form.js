@@ -128,7 +128,7 @@ define('app/form', [
         }
 
         require([
-            'templates/' + form.opts.errorTpl
+            'tpl/' + form.opts.errorTpl
         ], function onErrorTplLoaded(tpl) {
             var html = tpl({
                 header  : 'Ошибка!',
@@ -158,7 +158,7 @@ define('app/form', [
         }
 
         require([
-            'templates/' + form.opts.successTpl
+            'tpl/' + form.opts.successTpl
         ], function onSuccessTplLoaded(tpl) {
             var html = tpl({
                 header  : 'Спасибо!',
@@ -186,7 +186,7 @@ define('app/form', [
         }
 
         require([
-            'templates/' + form.opts.popupTpl
+            'tpl/' + form.opts.popupTpl
         ], function onPopupTplLoaded(tpl) {
             form.modal = $(tpl());
             form.modal.appendTo(form.$el)

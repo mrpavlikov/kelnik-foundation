@@ -1,4 +1,3 @@
-var projectName = 'kelnik-foundation';
 /**
  * Usage
  *
@@ -10,6 +9,8 @@ var projectName = 'kelnik-foundation';
  * Watch for sass changes
  * $ gulp watch
  */
+var projectName  = 'kelnik-foundation';
+
 var gulp         = require('gulp');
 var uglify       = require('gulp-uglify');
 var rename       = require('gulp-rename');
@@ -26,7 +27,7 @@ var chmod        = require('gulp-chmod');
 var notify       = require('gulp-notify');
 var tap          = require('gulp-tap');
 var Notification = require('node-notifier');
-var notifier      = new Notification();
+var notifier     = new Notification();
 
 /**
  * Error function for plumber
@@ -41,7 +42,7 @@ var onError = notify.onError('Ошибка в <%= error.plugin %>');
 var paths = {
     scripts   : ['dist/js/**/*.js'],
     sass      : ['dist/scss/**/*.scss'],
-    templates : ['dist/templates/**/*.hbs']
+    templates : ['dist/js/tpl/**/*.hbs']
 };
 
 /**
@@ -62,9 +63,9 @@ gulp.task('compass', function() {
 
     return gulp.src(paths.sass)
         .pipe(compass({
-            css        : 'www/css',
-            sass       : 'dist/scss',
-            config_file: './config.rb' // jshint ignore:line
+            css         : 'www/css',
+            sass        : 'dist/scss',
+            config_file : './config.rb' // jshint ignore:line
         }))
         .on('error', notify.onError({
             message : 'Failed to compile',
@@ -104,7 +105,7 @@ gulp.task('js-uglify', function jsTask() {
 gulp.task('vendor', function vendorTask() {
     'use strict';
 
-    return gulp.src(['www/js/requirejs/require.js'], {
+    return gulp.src(['www/js/lib/requirejs/require.js'], {
         base: process.cwd() // jshint ignore:line
     })
         .pipe(plumber({
@@ -124,7 +125,6 @@ gulp.task('templates', function templatesTask() {
     'use strict';
 
     var fileName;
-
     var errorTpl = '<%= error.message %>';
 
     return gulp.src(paths.templates)
@@ -143,9 +143,9 @@ gulp.task('templates', function templatesTask() {
         .pipe(plumber.stop())
         .pipe(defineModule('amd'))
         .pipe(uglify({
-            outSourceMap: false
+            outSourceMap : false
         }))
-        .pipe(gulp.dest('www/js/templates/'));
+        .pipe(gulp.dest('www/js/tpl/'));
 });
 
 /**
@@ -160,7 +160,7 @@ gulp.task('scss-lint', function sassLintTask() {
 
     return gulp.src(paths.sass)
         .pipe(scsslint({
-            config: '.scss-lint.yml'
+            config : '.scss-lint.yml'
         }))
         .pipe(scsslint.failReporter());
 });
@@ -209,8 +209,8 @@ gulp.task('hooks', function() {
 gulp.task('pre-commit-notify', function() {
     'use strict';
     notifier.notify({
-        message: 'Commit failed. Fix errors first.',
-        title: projectName
+        message : 'Commit failed. Fix errors first.',
+        title   : projectName
     });
 });
 
