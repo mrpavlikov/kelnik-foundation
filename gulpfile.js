@@ -41,7 +41,7 @@ var onError = notify.onError('Ошибка в <%= error.plugin %>');
  */
 var paths = {
     scripts   : ['dist/js/**/*.js'],
-    sass      : ['dist/scss/**/*.scss'],
+    sass      : ['dist/styles/**/*.scss'],
     templates : ['dist/js/tpl/**/*.hbs']
 };
 
@@ -64,7 +64,7 @@ gulp.task('compass', function() {
     return gulp.src(paths.sass)
         .pipe(compass({
             css         : 'www/css',
-            sass        : 'dist/scss',
+            sass        : 'dist/styles',
             config_file : './config.rb' // jshint ignore:line
         }))
         .on('error', notify.onError({
