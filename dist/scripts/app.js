@@ -6,9 +6,9 @@ define('app', [
 ) {
     'use strict';
 
-    /* jshint ignore:start */
     $(document).foundation({
         abide : {
+            /* jshint ignore:start */
             patterns : {
                 phone     : /^(\+[ ]?)?[0-9]{1,4}[ ]?([0-9]{1,5}|[(][0-9]{1,5}[)])[ ]?[0-9]([\- ]?[0-9]){2,6}[\- ]?[0-9]$/,
                 password  : /^[^\s]{6,}$/,
@@ -17,24 +17,9 @@ define('app', [
             },
 
             live_validate : false
+            /* jshint ignore:end */
         }
     });
-    /* jshint ignore:end */
-
-    // Подключение плагина Fotorama
-    (function initFotorama(list) {
-        if (!list.length) {
-            return;
-        }
-
-        var fotorama = function() {
-            $(this).fotorama({});
-        };
-
-        require(['fotorama'], function onFotoramaLoaded() {
-            list.each(fotorama);
-        });
-    })($('.fotorama'));
 
     // Подключение Яндекс карт
     (function initYmaps(cont) {
