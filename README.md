@@ -6,14 +6,14 @@
 
 Для работы необходимы
 
-    * [Node.js](http://nodejs.org)
-    * [Gulp](http://gulpjs.com/): `[sudo] npm install -g gulp`
-    * [Bower](http://bower.io): `[sudo] npm install -g bower`
-    * [Jscs](https://github.com/mdevils/node-jscs): `[sudo] npm install jscs -g`
-    * [Jshint](https://github.com/jshint/jshint/): `[sudo] npm install jshint -g`
-    * [Ruby](https://www.ruby-lang.org/ru/downloads/)
-    * [Compass](http://compass-style.org/): `[sudo] gem install compass`
-    * [Scss-lint](https://github.com/causes/scss-lint): `[sudo] gem install scss-lint`
+* [Node.js](http://nodejs.org)
+* [Gulp](http://gulpjs.com/): `[sudo] npm install -g gulp`
+* [Bower](http://bower.io): `[sudo] npm install -g bower`
+* [Jscs](https://github.com/mdevils/node-jscs): `[sudo] npm install jscs -g`
+* [Jshint](https://github.com/jshint/jshint/): `[sudo] npm install jshint -g`
+* [Ruby](https://www.ruby-lang.org/ru/downloads/)
+* [Compass](http://compass-style.org/): `[sudo] gem install compass`
+* [Scss-lint](https://github.com/causes/scss-lint): `[sudo] gem install scss-lint`
 
 ## Quickstart
 
