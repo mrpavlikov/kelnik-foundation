@@ -12,7 +12,6 @@ require.config({
         fastclick       : 'fastclick/lib/fastclick',
         modernizr       : 'modernizr/modernizr',
         placeholder     : 'jquery-placeholder/jquery.placeholder',
-        fotorama        : 'fotorama/fotorama',
         ymaps           : '//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU',
         handlebars      : 'handlebars/handlebars.runtime.min'
     },
@@ -33,10 +32,6 @@ require.config({
         },
         placeholder: {
             exports: 'Placeholders'
-        },
-        fotorama: {
-            deps   : ['jquery'],
-            exports: 'jQuery.fn.fotorama'
         },
         ymaps: {
             exports: 'ymaps'
