@@ -6,7 +6,7 @@
 /**
  * Example :
  * <code>
- * require(['form'], function onFormLoaded(Form) {
+ * require(['app/form'], function onFormLoaded(Form) {
  *     var init = function() {
  *         var form = new Form($(this));
  *
@@ -30,7 +30,12 @@
  * </code>
  */
 
-define(['jquery', 'foundation'], function formModule($) {
+define('app/form', [
+    'jquery',
+    'foundation'
+], function(
+    $
+) {
     'use strict';
 
     /**

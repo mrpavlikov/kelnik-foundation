@@ -1,7 +1,11 @@
-define(['jquery', 'foundation'], function application($) {
+define('app', [
+    'jquery',
+    'foundation'
+], function application(
+    $
+) {
     'use strict';
 
-    // Инициализация фреймворка Foundation
     /* jshint ignore:start */
     $(document).foundation({
         abide : {
