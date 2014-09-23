@@ -50,12 +50,5 @@ define(['jquery', 'foundation'], function application($) {
         });
     })(document.querySelector('#map'));
 
-    // Пример работы с шаблонами
-    require(['templates/hello', 'helpers'], function onTplLoaded(template) {
-        console.log(template({
-            name : 'Pavlikov'
-        }));
-    });
-
     return {};
 });
