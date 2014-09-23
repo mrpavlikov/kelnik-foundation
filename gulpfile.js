@@ -9,6 +9,9 @@
  * Watch for sass changes
  * $ gulp watch
  */
+
+'use strict';
+
 var projectName  = 'kelnik-foundation';
 
 var gulp         = require('gulp');
@@ -59,8 +62,6 @@ gulp.task('build', [
 ]);
 
 gulp.task('compass', function() {
-    'use strict';
-
     return gulp.src(paths.sass)
         .pipe(compass({
             css         : 'www/styles',
@@ -77,8 +78,6 @@ gulp.task('compass', function() {
 });
 
 gulp.task('js-uglify', function jsTask() {
-    'use strict';
-
     var errorTpl = [
         'Line: <%= error.lineNumber %>: <%= error.message %>',
         '<%= error.fileName %>'
@@ -103,8 +102,6 @@ gulp.task('js-uglify', function jsTask() {
 });
 
 gulp.task('vendor', function vendorTask() {
-    'use strict';
-
     return gulp.src(['www/scripts/lib/requirejs/require.js'], {
         base: process.cwd() // jshint ignore:line
     })
@@ -122,8 +119,6 @@ gulp.task('vendor', function vendorTask() {
 });
 
 gulp.task('templates', function templatesTask() {
-    'use strict';
-
     var fileName;
     var errorTpl = '<%= error.message %>';
 
@@ -156,8 +151,6 @@ gulp.task('templates', function templatesTask() {
 gulp.task('lint', ['jscs', 'jshint', 'scss-lint']);
 
 gulp.task('scss-lint', function sassLintTask() {
-    'use strict';
-
     return gulp.src(paths.sass)
         .pipe(scsslint({
             config : '.scss-lint.yml'
@@ -166,8 +159,6 @@ gulp.task('scss-lint', function sassLintTask() {
 });
 
 gulp.task('jshint', function lintTask() {
-    'use strict';
-
     var errorReporter = function() {
         return map(function(file, cb) {
             if (!file.jshint.success) {
@@ -184,7 +175,6 @@ gulp.task('jshint', function lintTask() {
 });
 
 gulp.task('jscs', function jscsTask() {
-    'use strict';
     return gulp.src(paths.scripts)
         .pipe(jscs());
 });
@@ -194,8 +184,6 @@ gulp.task('jscs', function jscsTask() {
  */
 
 gulp.task('hooks', function() {
-    'use strict';
-
     gulp.src('hooks/*')
         .pipe(chmod({
             execute: true
@@ -207,7 +195,6 @@ gulp.task('hooks', function() {
  * Notify tasks
  */
 gulp.task('pre-commit-notify', function() {
-    'use strict';
     notifier.notify({
         message : 'Commit failed. Fix errors first.',
         title   : projectName
@@ -218,8 +205,6 @@ gulp.task('pre-commit-notify', function() {
  * Watch task
  */
 gulp.task('watch', ['build'], function watch() {
-    'use strict';
-
     gulp.watch(paths.sass     , ['compass']);
     gulp.watch(paths.scripts  , ['js-uglify']);
     gulp.watch(paths.templates, ['templates']);
