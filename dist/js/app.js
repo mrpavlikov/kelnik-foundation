@@ -17,35 +17,6 @@ define(['jquery', 'foundation'], function application($) {
     });
     /* jshint ignore:end */
 
-    // Инициализация форм
-    (function initForms(forms) {
-        if (!forms.length) {
-            return;
-        }
-
-        require(['form'], function onFormLoaded(Form) {
-            var init = function() {
-                var form = new Form($(this));
-/*
-                form.onSuccess = function(data) {
-                    alert('Custom on success');
-                    console.log(data);
-                    return true; // чтобы отменить стандартный обработчик
-                };
-
-                form.onError = function(data) {
-                    alert('Custom on error');
-                    console.log(data);
-                    return true; // чтобы отменить стандартный обработчик
-                };
-*/
-                form.init();
-            };
-
-            forms.each(init);
-        });
-    })($('form'));
-
     // Подключение плагина Fotorama
     (function initFotorama(list) {
         if (!list.length) {

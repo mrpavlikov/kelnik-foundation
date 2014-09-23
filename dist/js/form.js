@@ -1,12 +1,44 @@
+/**
+ * Класс работы с аяксовыми формами
+ * @class Form
+ */
+
+/**
+ * Example :
+ * <code>
+ * require(['form'], function onFormLoaded(Form) {
+ *     var init = function() {
+ *         var form = new Form($(this));
+ *
+ *         form.onSuccess = function(data) {
+ *             alert('Custom on success');
+ *             console.log(data);
+ *             return true; // чтобы отменить стандартный обработчик
+ *         };
+ *
+ *         form.onError = function(data) {
+ *             alert('Custom on error');
+ *             console.log(data);
+ *             return true; // чтобы отменить стандартный обработчик
+ *         };
+ *
+ *         form.init();
+ *     };
+ *
+ *     forms.each(init);
+ * })($('form'));
+ * </code>
+ */
+
 define(['jquery', 'foundation'], function formModule($) {
     'use strict';
 
     /**
-     * Класс форм
-     * @param {Object|String} form объект jQuery или строка-селектор
-     * @param {Object|Void}   opts объект параметров
+     * @constructor
+     * @param {Object|String} $form объект jQuery или строка-селектор
+     * @param {Object|Void}   opts  объект параметров
      */
-    var Form = function(form, opts) {
+    var Form = function($form, opts) {
         this.onSuccess = null;
         this.onError   = null;
 
@@ -21,24 +53,24 @@ define(['jquery', 'foundation'], function formModule($) {
 
         $.extend(this.opts, opts || {});
 
-        this.form = ('object' === typeof form) ?
-                    form :
-                    $('#' + form);
+        this.$el = ($form instanceof $) ?
+                   $form :
+                   $($form);
 
-        this.submitBtn = this.form.find('[type=submit]');
+        this.$submit = this.$el.find('[type=submit]');
     };
 
     /**
      * Отменяет обычный submit формы, на событии valid осуществляет свой submit
      */
     Form.prototype.init = function() {
-        var self = this;
+        var form = this;
 
-        self.form.on('valid.fndtn.abide', function send() {
-            self.send();
+        form.$el.on('valid.fndtn.abide', function send() {
+            form.send();
         });
 
-        self.form.submit(function preventDefault(e) {
+        form.$el.submit(function preventDefault(e) {
             e.preventDefault();
         });
     };
@@ -47,24 +79,26 @@ define(['jquery', 'foundation'], function formModule($) {
      * Отправка формы и обработчик ответа от сервера
      */
     Form.prototype.send = function() {
-        var self = this;
+        var form = this;
 
-        self.submitBtn.prop('disabled', true);
         $(':focus').blur();
+        form.$submit.prop('disabled', true);
 
         $.ajax({
-            url      : self.form.attr('action') || location,
-            data     : self.form.serialize(),
-            type     : self.form.attr('method') || 'post',
+            url      : form.$el.attr('action') || location,
+            data     : form.$el.serialize(),
+            type     : form.$el.attr('method') || 'post',
             dataType : 'json'
         }).always(function always() {
-            self.submitBtn.prop('disabled', false);
-        }).done(function onDone(data) {
-            var method = data.ret ? 'handleSuccess' : 'handleError';
-            self[method](data);
-        }).fail(function onFail() {
-            self.handleError({
-                message : self.opts.errorText
+            form.$submit.prop('disabled', false);
+        }).done(function done(data) {
+            var method = data.ret ?
+                         'handleSuccess' :
+                         'handleError';
+            form[method](data);
+        }).fail(function fail() {
+            form.handleError({
+                message : form.opts.errorText
             });
         });
     };
@@ -74,28 +108,28 @@ define(['jquery', 'foundation'], function formModule($) {
      * @param  {Object|undefined} data ответ сервера, если был, или undefined
      */
     Form.prototype.handleError = function(data) {
-        var self = this;
+        var form = this;
 
         /**
          * Если в параметры конструктора был передан callback - вызываем.
          * Если при этом callback вернет true, то стандартный обработчик
          * будет отменен
          */
-        if ('function' === typeof self.onError) {
-            var ret = self.onError(data);
+        if ('function' === typeof form.onError) {
+            var ret = form.onError(data);
             if (ret) {
                 return;
             }
         }
 
         require([
-            'templates/' + self.opts.errorTpl
+            'templates/' + form.opts.errorTpl
         ], function onErrorTplLoaded(tpl) {
             var html = tpl({
                 header  : 'Ошибка!',
-                message : data.message || self.opts.errorText
+                message : data.message || form.opts.errorText
             });
-            self.popup(html);
+            form.popup(html);
         });
     };
 
@@ -104,52 +138,53 @@ define(['jquery', 'foundation'], function formModule($) {
      * @param  {Object} data ответ сервера
      */
     Form.prototype.handleSuccess = function(data) {
-        var self = this;
+        var form = this;
 
         if (data.redirect) {
             location.href = data.redirect;
             return;
         }
 
-        if ('function' === typeof self.onSuccess) {
-            var ret = self.onSuccess(data);
+        if ('function' === typeof form.onSuccess) {
+            var ret = form.onSuccess(data);
             if (ret) {
                 return;
             }
         }
 
         require([
-            'templates/' + self.opts.successTpl
+            'templates/' + form.opts.successTpl
         ], function onSuccessTplLoaded(tpl) {
             var html = tpl({
                 header  : 'Спасибо!',
-                message : data.message || self.opts.successText
+                message : data.message || form.opts.successText
             });
-            self.form.replaceWith(html);
+            form.$el.replaceWith(html);
         });
     };
 
-  /**
+    /**
      * Открытие попапа
      * @param  {String} html содержимое попапа
      */
     Form.prototype.popup = function(html) {
-        var self = this;
+        var form = this;
+
         var reveal = function() {
-            self.modal.find('.js-alert').html(html);
-            self.modal.foundation('reveal', 'open');
+            form.modal.find('.js-alert').html(html);
+            form.modal.foundation('reveal', 'open');
         };
 
-        if (self.modal) {
+        if (form.modal) {
             reveal();
             return;
         }
 
         require([
-            'templates/' + self.opts.popupTpl
+            'templates/' + form.opts.popupTpl
         ], function onPopupTplLoaded(tpl) {
-            self.modal = $(tpl());
-            self.modal.appendTo(self.form)
+            form.modal = $(tpl());
+            form.modal.appendTo(form.$el)
                       .foundation('reveal');
             reveal();
         });
