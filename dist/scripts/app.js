@@ -1,10 +1,14 @@
 define('app', [
     'jquery',
+    'fastclick',
     'foundation'
 ], function(
-    $
+    $,
+    FastClick
 ) {
     'use strict';
+
+    FastClick.attach(document.body);
 
     $(document).foundation({
         abide : {
