@@ -2,7 +2,7 @@ http_path = '/'
 
 output_style = :compressed
 css_dir = 'www/styles'
-sass_dir = 'dist/styles'
+sass_dir = 'src/styles'
 javascripts_dir = 'www/scripts'
 relative_assets = true
 line_comments = false

@@ -43,9 +43,9 @@ var onError = notify.onError('Ошибка в <%= error.plugin %>');
  * @type {Object}
  */
 var paths = {
-    scripts   : ['dist/scripts/**/*.js'],
-    sass      : ['dist/styles/**/*.scss'],
-    templates : ['dist/scripts/tpl/**/*.hbs']
+    scripts   : ['src/scripts/**/*.js'],
+    sass      : ['src/styles/**/*.scss'],
+    templates : ['src/scripts/tpl/**/*.hbs']
 };
 
 /**
@@ -65,7 +65,7 @@ gulp.task('compass', function() {
     return gulp.src(paths.sass)
         .pipe(compass({
             css         : 'www/styles',
-            sass        : 'dist/styles',
+            sass        : 'src/styles',
             config_file : './config.rb' // jshint ignore:line
         }))
         .on('error', notify.onError({
@@ -86,7 +86,7 @@ gulp.task('js-uglify', function jsTask() {
     var titleTpl = projectName + ': <%= error.plugin %>';
 
     return gulp.src(paths.scripts, {
-        base: 'dist/js'
+        base: 'src/scripts'
     })
         .pipe(plumber({
             errorHandler: notify.onError({

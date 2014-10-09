@@ -73,9 +73,5 @@
     "requireCommaBeforeLineBreak": true,
     "requireDotNotation": true,
     "disallowKeywordsOnNewLine": [ "else" ],
-    "validateLineBreaks": "LF",
-
-    "excludeFiles": [
-        "./dist/js/config.js"
-    ]
+    "validateLineBreaks": "LF"
 }
