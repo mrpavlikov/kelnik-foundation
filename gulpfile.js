@@ -12,8 +12,6 @@
 
 'use strict';
 
-var projectName  = 'kelnik-foundation';
-
 var gulp         = require('gulp');
 var uglify       = require('gulp-uglify');
 var rename       = require('gulp-rename');
@@ -32,6 +30,8 @@ var tap          = require('gulp-tap');
 var notifier     = require('node-notifier');
 var livereload   = require('gulp-livereload');
 var changed      = require('gulp-changed');
+var jade         = require('gulp-jade');
+var jadeInh      = require('gulp-jade-inheritance');
 var lr           = require('tiny-lr');
 var server       = lr();
 
@@ -55,12 +55,15 @@ paths.src.scripts     = paths.src.scriptsBase + '/**/*.js';
 paths.src.stylesBase  = paths.srcBase + '/styles';
 paths.src.styles      = paths.src.stylesBase + '/**/*.scss';
 paths.src.tpl         = paths.srcBase + '/scripts/tpl/**/*.hbs';
+paths.src.jadeBase    = paths.srcBase + '/jade';
+paths.src.jade        = paths.src.jadeBase + '/**/*.jade';
 
 paths.buildBase       = 'www';
 paths.build           = {};
 paths.build.scripts   = paths.buildBase + '/scripts';
 paths.build.styles    = paths.buildBase + '/styles';
 paths.build.tpl       = paths.build.scripts + '/tpl';
+paths.build.jade      = paths.buildBase + '/html';
 
 paths.html            = paths.buildBase + '/**/*.html';
 
@@ -79,7 +82,8 @@ gulp.task('build', [
     'compass',
     'vendor',
     'js-uglify',
-    'templates'
+    'templates',
+    'jade'
 ]);
 
 gulp.task('compass', function() {
@@ -90,8 +94,8 @@ gulp.task('compass', function() {
             config_file : './config.rb' // jshint ignore:line
         }))
         .on('error', notify.onError({
-            message : 'Failed to compile',
-            title   : projectName + ': compass'
+            message : 'Failed to build css',
+            title   : 'Compass'
         }))
         .on('error', function() {
             this.emit('end');
@@ -100,21 +104,16 @@ gulp.task('compass', function() {
 });
 
 gulp.task('js-uglify', function jsTask() {
-    var errorTpl = [
-        'Line: <%= error.lineNumber %>: <%= error.message %>',
-        '<%= error.fileName %>'
-    ].join('\n') ;
-
-    var titleTpl = projectName + ': <%= error.plugin %>';
-
     return gulp.src(paths.src.scripts, {
         base: paths.src.scriptsBase
     })
         .pipe(changed(paths.build.scripts))
         .pipe(plumber({
             errorHandler: notify.onError({
-                message : errorTpl,
-                title   : titleTpl
+                message : 'Line: <%= error.lineNumber %>:' +
+                          ' <%= error.message %>' +
+                          '\n<%= error.fileName %>',
+                title   : '<%= error.plugin %>'
             })
         }))
         .pipe(uglify({
@@ -156,7 +155,7 @@ gulp.task('templates', function templatesTask() {
                 message : function() {
                     return errorTpl + '\n\n' + fileName;
                 },
-                title   : projectName + ': handlebars'
+                title   : 'Handlebars'
             })
         }))
         .pipe(handlebars())
@@ -167,6 +166,23 @@ gulp.task('templates', function templatesTask() {
         }))
         .pipe(gulp.dest(paths.build.tpl))
         .pipe(livereload(server, lrOptions));
+});
+
+gulp.task('jade', function() {
+    return gulp.src(paths.src.jade)
+        .pipe(changed(paths.build.jade, {extension: '.html'}))
+        .pipe(jadeInh({basedir: paths.src.jadeBase}))
+        .pipe(jade({
+            pretty: true
+        }))
+        .on('error', notify.onError({
+            message : 'Failed to compile html',
+            title   : 'Jade'
+        }))
+        .on('error', function() {
+            this.emit('end');
+        })
+        .pipe(gulp.dest(paths.build.jade));
 });
 
 /**
@@ -222,8 +238,8 @@ gulp.task('hooks', function() {
 s */
 gulp.task('pre-commit-notify', function() {
     notifier.notify({
-        message : 'Commit failed. Fix errors first.',
-        title   : projectName
+        message : 'Fix errors first',
+        title   : 'Commit failed'
     });
 });
 
@@ -239,6 +255,7 @@ gulp.task('watch', ['build'], function watch() {
         gulp.watch(paths.src.styles,  ['compass']);
         gulp.watch(paths.src.scripts, ['js-uglify']);
         gulp.watch(paths.src.tpl,     ['templates']);
+        gulp.watch(paths.src.jade,    ['jade']);
 
         gulp.watch(paths.html).on('change', function(file) {
             livereload.changed(file.path, server);
