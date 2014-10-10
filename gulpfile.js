@@ -29,8 +29,11 @@ var map          = require('map-stream');
 var chmod        = require('gulp-chmod');
 var notify       = require('gulp-notify');
 var tap          = require('gulp-tap');
-var Notification = require('node-notifier');
-var notifier     = new Notification();
+var notifier     = require('node-notifier');
+var livereload   = require('gulp-livereload');
+var changed      = require('gulp-changed');
+var lr           = require('tiny-lr');
+var server       = lr();
 
 /**
  * Error function for plumber
@@ -42,10 +45,28 @@ var onError = notify.onError('Ошибка в <%= error.plugin %>');
  * Configuring paths
  * @type {Object}
  */
-var paths = {
-    scripts   : ['src/scripts/**/*.js'],
-    sass      : ['src/styles/**/*.scss'],
-    templates : ['src/scripts/tpl/**/*.hbs']
+
+var paths = {};
+
+paths.srcBase         = 'src';
+paths.src             = {};
+paths.src.scriptsBase = paths.srcBase + '/scripts';
+paths.src.scripts     = paths.src.scriptsBase + '/**/*.js';
+paths.src.stylesBase  = paths.srcBase + '/styles';
+paths.src.styles      = paths.src.stylesBase + '/**/*.scss';
+paths.src.tpl         = paths.srcBase + '/scripts/tpl/**/*.hbs';
+
+paths.buildBase       = 'www';
+paths.build           = {};
+paths.build.scripts   = paths.buildBase + '/scripts';
+paths.build.styles    = paths.buildBase + '/styles';
+paths.build.tpl       = paths.build.scripts + '/tpl';
+
+paths.html            = paths.buildBase + '/**/*.html';
+
+var lrOptions = {
+    silent : false,
+    auto   : false
 };
 
 /**
@@ -62,10 +83,10 @@ gulp.task('build', [
 ]);
 
 gulp.task('compass', function() {
-    return gulp.src(paths.sass)
+    return gulp.src(paths.src.styles)
         .pipe(compass({
-            css         : 'www/styles',
-            sass        : 'src/styles',
+            css         : paths.build.styles,
+            sass        : paths.src.stylesBase,
             config_file : './config.rb' // jshint ignore:line
         }))
         .on('error', notify.onError({
@@ -74,7 +95,8 @@ gulp.task('compass', function() {
         }))
         .on('error', function() {
             this.emit('end');
-        });
+        })
+        .pipe(livereload(server, lrOptions));
 });
 
 gulp.task('js-uglify', function jsTask() {
@@ -85,9 +107,10 @@ gulp.task('js-uglify', function jsTask() {
 
     var titleTpl = projectName + ': <%= error.plugin %>';
 
-    return gulp.src(paths.scripts, {
-        base: 'src/scripts'
+    return gulp.src(paths.src.scripts, {
+        base: paths.src.scriptsBase
     })
+        .pipe(changed(paths.build.scripts))
         .pipe(plumber({
             errorHandler: notify.onError({
                 message : errorTpl,
@@ -98,7 +121,8 @@ gulp.task('js-uglify', function jsTask() {
             outSourceMap: false
         }))
         .pipe(plumber.stop())
-        .pipe(gulp.dest('www/scripts'));
+        .pipe(gulp.dest(paths.build.scripts))
+        .pipe(livereload(server, lrOptions));
 });
 
 gulp.task('vendor', function vendorTask() {
@@ -122,7 +146,8 @@ gulp.task('templates', function templatesTask() {
     var fileName;
     var errorTpl = '<%= error.message %>';
 
-    return gulp.src(paths.templates)
+    return gulp.src(paths.src.tpl)
+        .pipe(changed(paths.build.tpl, {extension: '.js'}))
         .pipe(tap(function(file) {
             fileName = file.relative;
         }))
@@ -140,7 +165,8 @@ gulp.task('templates', function templatesTask() {
         .pipe(uglify({
             outSourceMap : false
         }))
-        .pipe(gulp.dest('www/scripts/tpl/'));
+        .pipe(gulp.dest(paths.build.tpl))
+        .pipe(livereload(server, lrOptions));
 });
 
 /**
@@ -151,7 +177,7 @@ gulp.task('templates', function templatesTask() {
 gulp.task('lint', ['jscs', 'jshint', 'scss-lint']);
 
 gulp.task('scss-lint', function sassLintTask() {
-    return gulp.src(paths.sass)
+    return gulp.src(paths.src.styles)
         .pipe(scsslint({
             config : '.scss-lint.yml'
         }))
@@ -168,14 +194,14 @@ gulp.task('jshint', function lintTask() {
         });
     };
 
-    return gulp.src(paths.scripts)
+    return gulp.src(paths.src.scripts)
         .pipe(jshint())
         .pipe(jshint.reporter(stylish))
         .pipe(errorReporter());
 });
 
 gulp.task('jscs', function jscsTask() {
-    return gulp.src(paths.scripts)
+    return gulp.src(paths.src.scripts)
         .pipe(jscs());
 });
 
@@ -192,8 +218,8 @@ gulp.task('hooks', function() {
 });
 
 /**
- * Notify tasks
- */
+ * Notify task
+s */
 gulp.task('pre-commit-notify', function() {
     notifier.notify({
         message : 'Commit failed. Fix errors first.',
@@ -205,9 +231,19 @@ gulp.task('pre-commit-notify', function() {
  * Watch task
  */
 gulp.task('watch', ['build'], function watch() {
-    gulp.watch(paths.sass     , ['compass']);
-    gulp.watch(paths.scripts  , ['js-uglify']);
-    gulp.watch(paths.templates, ['templates']);
+    server.listen(35729, function(err) {
+        if (err) {
+            return console.log('Livereload start failed');
+        }
+
+        gulp.watch(paths.src.styles,  ['compass']);
+        gulp.watch(paths.src.scripts, ['js-uglify']);
+        gulp.watch(paths.src.tpl,     ['templates']);
+
+        gulp.watch(paths.html).on('change', function(file) {
+            livereload.changed(file.path, server);
+        });
+    });
 });
 
 // Run
