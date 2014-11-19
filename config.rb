@@ -8,3 +8,4 @@ relative_assets = true
 line_comments = false
 add_import_path 'www/scripts/lib/foundation/scss'
 fonts_dir = 'www/fonts'
+asset_cache_buster :none
