@@ -1,4 +1,8 @@
 linters:
+  BangFormat:
+    space_before_bang: true
+    space_after_bang: false
+
   BorderZero:
     enabled: false
 
@@ -52,6 +56,10 @@ linters:
   IdWithExtraneousSelector:
     enabled: true
 
+  ImportPath:
+    leading_underscore: false
+    filename_extension: false
+
   Indentation:
     enabled: true
     character: space # or 'tab'
@@ -65,9 +73,15 @@ linters:
     enabled: true
     force_nesting: true
 
+  NestingDepth:
+    max_depth: 3
+
   SelectorFormat:
     enabled: true
-    convention: ^[a-z]([-]?[a-z0-9]+)*(__[a-z0-9]([-]?[a-z0-9]+)*)?(_[a-z0-9]([-]?[a-z0-9]+)*){0,2}$ # or 'BEM', or a regex pattern
+    convention: BEM # or 'BEM', or a regex pattern
+
+  NameFormat:
+      enabled: false
 
   PlaceholderInExtend:
     enabled: true
@@ -79,6 +93,11 @@ linters:
   PropertySpelling:
     enabled: true
     extra_properties: [text-size-adjust]
+
+  QualifyingElement:
+    allow_element_with_attribute: false
+    allow_element_with_class: false
+    allow_element_with_id: false
 
   SelectorDepth:
     enabled: true
@@ -107,6 +126,7 @@ linters:
   SpaceBeforeBrace:
     enabled: true
     allow_single_line_padding: true
+    style: space
 
   SpaceBetweenParens:
     enabled: true
@@ -130,6 +150,9 @@ linters:
 
   UrlQuotes:
     enabled: true
+
+  VendorPrefixes:
+    enabled: false
 
   ZeroUnit:
     enabled: true
